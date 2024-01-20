@@ -43,7 +43,7 @@ getJasmineRequireObj().StackTrace = function(j$) {
     }
   ];
 
-  // regexes should capture the function name (if any) as group 1
+  // expressions should capture the function name (if any) as group 1
   // and the file, line, and column as group 2.
   function tryParseFrames(lines) {
     let style = null;

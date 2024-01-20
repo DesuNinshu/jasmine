@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  var pkg = require("./package.json");
+  let pkg = require('./package.json');
   global.jasmineVersion = pkg.version;
 
   grunt.initConfig({
@@ -14,19 +14,19 @@ module.exports = function(grunt) {
 
   grunt.loadTasks('grunt/tasks');
 
-  grunt.registerTask('default', ['sass:dist', "cssUrlEmbed"]);
+  grunt.registerTask('default', ['sass:dist', 'cssUrlEmbed']);
 
   grunt.registerTask('buildDistribution',
     'Builds and lints jasmine.js, jasmine-html.js, jasmine.css',
     [
       'sass:dist',
-      "cssUrlEmbed",
+      'cssUrlEmbed',
       'concat'
     ]
   );
 
-  grunt.registerTask("execSpecsInNode",
-    "Run Jasmine core specs in Node.js",
+  grunt.registerTask('execSpecsInNode',
+    'Run Jasmine core specs in Node.js',
     function() {
       verifyNoGlobals(() => require('./lib/jasmine-core.js').noGlobals());
       const done = this.async(),
@@ -46,8 +46,8 @@ module.exports = function(grunt) {
     }
   );
 
-  grunt.registerTask("execSpecsInParallel",
-    "Run Jasmine core specs in parallel in Node.js",
+  grunt.registerTask('execSpecsInParallel',
+    'Run Jasmine core specs in parallel in Node.js',
     function() {
       // Need to require this here rather than at the top of the file
       // so that we don't break verifyNoGlobals above by loading jasmine-core
@@ -84,10 +84,10 @@ module.exports = function(grunt) {
     }
   );
 
-  grunt.registerTask("execSpecsInNode:performance",
-    "Run Jasmine performance specs in Node.js",
+  grunt.registerTask('execSpecsInNode:performance',
+    'Run Jasmine performance specs in Node.js',
     function() {
-      require("shelljs").exec("node_modules/.bin/jasmine JASMINE_CONFIG_PATH=spec/support/jasmine-performance.json");
+      require('shelljs').exec('node_modules/.bin/jasmine JASMINE_CONFIG_PATH=spec/support/jasmine-performance.json');
     }
   );
 };

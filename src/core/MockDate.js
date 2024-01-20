@@ -28,9 +28,9 @@ getJasmineRequireObj().MockDate = function(j$) {
       global.Date = FakeDate;
     };
 
-    this.tick = function(millis) {
-      millis = millis || 0;
-      currentTime = currentTime + millis;
+    this.tick = function(milliseconds) {
+      milliseconds = milliseconds || 0;
+      currentTime = currentTime + milliseconds;
     };
 
     this.uninstall = function() {

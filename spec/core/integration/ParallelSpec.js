@@ -61,7 +61,7 @@ describe('Support for parallel execution', function() {
     expect(afterAll).toHaveBeenCalled();
   });
 
-  it('does not remember focused runables from previous batches', async function() {
+  it('does not remember focused runnables from previous batches', async function() {
     env.fit('a focused spec', function() {});
     env.parallelReset();
     env.it('a spec', function() {});

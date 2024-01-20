@@ -124,12 +124,12 @@ getJasmineRequireObj().Clock = function() {
      * @name Clock#tick
      * @since 1.3.0
      * @function
-     * @param {int} millis The number of milliseconds to tick.
+     * @param {int} milliseconds The number of milliseconds to tick.
      */
-    this.tick = function(millis) {
+    this.tick = function(milliseconds) {
       if (installed) {
-        delayedFunctionScheduler.tick(millis, function(millis) {
-          mockDate.tick(millis);
+        delayedFunctionScheduler.tick(milliseconds, function(milliseconds) {
+          mockDate.tick(milliseconds);
         });
       } else {
         throw new Error(

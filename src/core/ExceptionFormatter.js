@@ -68,11 +68,11 @@ getJasmineRequireObj().ExceptionFormatter = function(j$) {
       }
 
       if (error.cause && error.cause instanceof Error) {
-        const substack = this.stack_(error.cause, {
+        const frame = this.stack_(error.cause, {
           messageHandling: 'require'
         });
-        substack[0] = 'Caused by: ' + substack[0];
-        lines = lines.concat(substack);
+        frame[0] = 'Caused by: ' + frame[0];
+        lines = lines.concat(frame);
       }
 
       return lines;

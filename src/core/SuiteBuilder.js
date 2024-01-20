@@ -19,7 +19,7 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       this.topSuite = this.suiteFactory_('Jasmine__TopLevel__Suite');
       this.currentDeclarationSuite_ = this.topSuite;
       this.totalSpecsDefined = 0;
-      this.focusedRunables = [];
+      this.focusedRunnables = [];
     }
 
     inDescribe() {
@@ -30,7 +30,7 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       this.topSuite.removeChildren();
       this.topSuite.reset();
       this.totalSpecsDefined = 0;
-      this.focusedRunables = [];
+      this.focusedRunnables = [];
     }
 
     describe(description, definitionFn, filename) {
@@ -46,20 +46,20 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       return suite;
     }
 
-    fdescribe(description, definitionFn, filename) {
-      ensureIsFunction(definitionFn, 'fdescribe');
+    fDescribe(description, definitionFn, filename) {
+      ensureIsFunction(definitionFn, 'fDescribe');
       const suite = this.suiteFactory_(description, filename);
       suite.isFocused = true;
 
-      this.focusedRunables.push(suite.id);
+      this.focusedRunnables.push(suite.id);
       this.unfocusAncestor_();
       this.addSpecsToSuite_(suite, definitionFn);
 
       return suite;
     }
 
-    xdescribe(description, definitionFn, filename) {
-      ensureIsFunction(definitionFn, 'xdescribe');
+    xDescribe(description, definitionFn, filename) {
+      ensureIsFunction(definitionFn, 'xDescribe');
       const suite = this.suiteFactory_(description, filename);
       suite.exclude();
       this.addSpecsToSuite_(suite, definitionFn);
@@ -98,7 +98,7 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       }
       const spec = this.specFactory_(description, fn, timeout, filename);
       this.currentDeclarationSuite_.addChild(spec);
-      this.focusedRunables.push(spec.id);
+      this.focusedRunnables.push(spec.id);
       this.unfocusAncestor_();
       return spec;
     }
@@ -253,9 +253,9 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       );
 
       if (focusedAncestor) {
-        for (let i = 0; i < this.focusedRunables.length; i++) {
-          if (this.focusedRunables[i] === focusedAncestor) {
-            this.focusedRunables.splice(i, 1);
+        for (let i = 0; i < this.focusedRunnables.length; i++) {
+          if (this.focusedRunnables[i] === focusedAncestor) {
+            this.focusedRunnables.splice(i, 1);
             break;
           }
         }
@@ -292,19 +292,19 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
 
   function beforeAndAfterFns(targetSuite) {
     return function() {
-      let befores = [],
+      let before = [],
         afters = [],
         suite = targetSuite;
 
       while (suite) {
-        befores = befores.concat(suite.beforeFns);
+        before = before.concat(suite.beforeFns);
         afters = afters.concat(suite.afterFns);
 
         suite = suite.parentSuite;
       }
 
       return {
-        befores: befores.reverse(),
+        before: before.reverse(),
         afters: afters
       };
     };

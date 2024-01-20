@@ -79,7 +79,7 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
       isNot = args[1],
       actual = args[2],
       expected = args.slice(3),
-      englishyPredicate = matcherName.replace(/[A-Z]/g, function(s) {
+      englishPredicate = matcherName.replace(/[A-Z]/g, function(s) {
         return ' ' + s.toLowerCase();
       });
 
@@ -87,7 +87,7 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
       'Expected ' +
       this.pp(actual) +
       (isNot ? ' not ' : ' ') +
-      englishyPredicate;
+      englishPredicate;
 
     if (expected.length > 0) {
       for (let i = 0; i < expected.length; i++) {
@@ -451,7 +451,7 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
         return false;
       }
     } else if (j$.isURL(a) && j$.isURL(b)) {
-      // URLs have no enumrable properties, so the default object comparison
+      // URLs have no enumerable properties, so the default object comparison
       // would consider any two URLs to be equal.
       return a.toString() === b.toString();
     } else {
@@ -555,7 +555,7 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
     return typeof obj === 'function';
   }
 
-  // Returns an array of [k, v] pairs for eacch property that's in objA
+  // Returns an array of [k, v] pairs for each property that's in objA
   // and not in objB.
   function extraKeysAndValues(objA, objB) {
     return MatchersUtil.keys(objA)

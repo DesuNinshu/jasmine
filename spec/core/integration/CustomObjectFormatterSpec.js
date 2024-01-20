@@ -67,7 +67,7 @@ describe('Custom object formatters', function() {
     );
   });
 
-  it('throws an exception if you try to add a custom object formatter outside a runable', function() {
+  it('throws an exception if you try to add a custom object formatter outside a runnable', function() {
     expect(function() {
       env.addCustomObjectFormatter(function() {});
     }).toThrowError(

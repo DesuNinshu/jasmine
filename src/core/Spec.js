@@ -11,7 +11,7 @@ getJasmineRequireObj().Spec = function(j$) {
     this.beforeAndAfterFns =
       attrs.beforeAndAfterFns ||
       function() {
-        return { befores: [], afters: [] };
+        return { before: [], afters: [] };
       };
     this.userContext =
       attrs.userContext ||
@@ -104,7 +104,7 @@ getJasmineRequireObj().Spec = function(j$) {
 
     const runnerConfig = {
       isLeaf: true,
-      queueableFns: [...fns.befores, this.queueableFn, ...fns.afters],
+      queueableFns: [...fns.before, this.queueableFn, ...fns.afters],
       onException: e => this.handleException(e),
       onMultipleDone: () => {
         // Issue a deprecation. Include the context ourselves and pass

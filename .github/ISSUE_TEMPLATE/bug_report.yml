@@ -23,7 +23,7 @@ body:
         If at all possible, upgrade to the latest versions of `jasmine-core` and any other relevant packages (e.g. `jasmine`, `jasmine-browser-runner`). If you can't do that, please check the [release notes](https://github.com/jasmine/jasmine/tree/main/release_notes) for all newer versions to make sure that the bug hasn't already been fixed.
 
         ## Put together a [minimal, reproducible example](https://stackoverflow.com/help/minimal-reproducible-example)
-        Please help us help you by creating a minimal but complete setup that demonstrates the problem. Remove any code and libraries that aren't absolutely necessary, but make sure it doesn't depend on any code you haven't included. In many cases a simple code snippet is enough. In cases involving external libraries, *especially* Karma or Angular, we're likely to need a runable Git repository or jsbin/stackblitz/etc.
+        Please help us help you by creating a minimal but complete setup that demonstrates the problem. Remove any code and libraries that aren't absolutely necessary, but make sure it doesn't depend on any code you haven't included. In many cases a simple code snippet is enough. In cases involving external libraries, *especially* Karma or Angular, we're likely to need a runnable Git repository or jsbin/stackblitz/etc.
 
         **If we can't reproduce it, we can't fix it. Bug reports without a minimal, reproducible example are very likely to be closed.**
 

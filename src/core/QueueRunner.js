@@ -248,8 +248,8 @@ getJasmineRequireObj().QueueRunner = function(j$) {
     this.skipPolicy_.fnErrored(currentFnIx);
   };
 
-  QueueRunner.prototype.diagnoseConflictingAsync_ = function(fn, retval) {
-    if (retval && j$.isFunction_(retval.then)) {
+  QueueRunner.prototype.diagnoseConflictingAsync_ = function(fn, returnValue) {
+    if (returnValue && j$.isFunction_(returnValue.then)) {
       // Issue a warning that matches the user's code.
       // Omit the stack trace because there's almost certainly no user code
       // on the stack at this point.

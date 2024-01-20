@@ -89,7 +89,7 @@ getJasmineRequireObj().CallTracker = function(j$) {
      * @name Spy#calls#first
      * @since 2.0.0
      * @function
-     * @return {ObjecSpy.callData}
+     * @return {Spy.callData}
      */
     this.first = function() {
       return calls[0];
@@ -100,7 +100,7 @@ getJasmineRequireObj().CallTracker = function(j$) {
      * @name Spy#calls#mostRecent
      * @since 2.0.0
      * @function
-     * @return {ObjecSpy.callData}
+     * @return {Spy.callData}
      */
     this.mostRecent = function() {
       return calls[calls.length - 1];

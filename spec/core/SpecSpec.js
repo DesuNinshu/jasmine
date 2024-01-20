@@ -63,20 +63,20 @@ describe('Spec', function() {
     expect(startCallback.calls.first().object).toEqual(spec);
   });
 
-  it('should call the start callback on execution but before any befores are called', function() {
+  it('should call the start callback on execution but before any before is are called', function() {
     const fakeQueueRunner = jasmine.createSpy('fakeQueueRunner');
-    let beforesWereCalled = false;
+    let beforeWasCalled = false;
     const startCallback = jasmine
       .createSpy('start-callback')
       .and.callFake(function() {
-        expect(beforesWereCalled).toBe(false);
+        expect(beforeWasCalled).toBe(false);
       });
     const spec = new jasmineUnderTest.Spec({
       queueableFn: { fn: function() {} },
       beforeFns: function() {
         return [
           function() {
-            beforesWereCalled = true;
+            beforeWasCalled = true;
           }
         ];
       },
@@ -102,7 +102,7 @@ describe('Spec', function() {
       spec = new jasmineUnderTest.Spec({
         queueableFn: queueableFn,
         beforeAndAfterFns: function() {
-          return { befores: [before], afters: [after] };
+          return { before: [before], afters: [after] };
         }
       });
 
@@ -126,7 +126,7 @@ describe('Spec', function() {
       spec = new jasmineUnderTest.Spec({
         queueableFn: { fn: function() {} },
         beforeAndAfterFns: function() {
-          return { befores: [], afters: [] };
+          return { before: [], afters: [] };
         }
       });
 
@@ -162,7 +162,7 @@ describe('Spec', function() {
         resultCallback: resultCallback
       });
 
-    spec.execute(fakeQueueRunner, 'cally-back', true);
+    spec.execute(fakeQueueRunner, 'call-back', true);
 
     expect(fakeQueueRunner).toHaveBeenCalledWith(
       jasmine.objectContaining({

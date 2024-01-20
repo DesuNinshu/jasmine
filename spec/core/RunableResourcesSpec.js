@@ -1,6 +1,6 @@
-describe('RunableResources', function() {
+describe('RunnableResources', function() {
   describe('#spies', function() {
-    behavesLikeAPerRunableMutableArray(
+    behavesLikeAPerRunnableMutableArray(
       'spies',
       'Spies must be created in a before function or a spec',
       false
@@ -8,51 +8,51 @@ describe('RunableResources', function() {
   });
 
   describe('#customSpyStrategies', function() {
-    behavesLikeAPerRunableMutableObject(
+    behavesLikeAPerRunnableMutableObject(
       'customSpyStrategies',
       'Custom spy strategies must be added in a before function or a spec'
     );
   });
 
   describe('#customEqualityTesters', function() {
-    behavesLikeAPerRunableMutableArray(
+    behavesLikeAPerRunnableMutableArray(
       'customEqualityTesters',
       'Custom Equalities must be added in a before function or a spec'
     );
   });
 
   describe('#customObjectFormatters', function() {
-    behavesLikeAPerRunableMutableArray(
+    behavesLikeAPerRunnableMutableArray(
       'customObjectFormatters',
       'Custom object formatters must be added in a before function or a spec'
     );
   });
 
   describe('#customMatchers', function() {
-    behavesLikeAPerRunableMutableObject(
+    behavesLikeAPerRunnableMutableObject(
       'customMatchers',
       'Matchers must be added in a before function or a spec'
     );
   });
 
   describe('#addCustomMatchers', function() {
-    it("adds all properties to the current runable's matchers", function() {
-      const currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it("adds all properties to the current runnable's matchers", function() {
+      const currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
 
       function toBeFoo() {}
       function toBeBar() {}
       function toBeBaz() {}
 
-      runableResources.addCustomMatchers({ toBeFoo });
-      expect(runableResources.customMatchers()).toEqual({ toBeFoo });
+      runnableResources.addCustomMatchers({ toBeFoo });
+      expect(runnableResources.customMatchers()).toEqual({ toBeFoo });
 
-      runableResources.addCustomMatchers({ toBeBar, toBeBaz });
-      expect(runableResources.customMatchers()).toEqual({
+      runnableResources.addCustomMatchers({ toBeBar, toBeBaz });
+      expect(runnableResources.customMatchers()).toEqual({
         toBeFoo,
         toBeBar,
         toBeBaz
@@ -61,30 +61,30 @@ describe('RunableResources', function() {
   });
 
   describe('#customAsyncMatchers', function() {
-    behavesLikeAPerRunableMutableObject(
+    behavesLikeAPerRunnableMutableObject(
       'customAsyncMatchers',
       'Async Matchers must be added in a before function or a spec'
     );
   });
 
   describe('#addCustomAsyncMatchers', function() {
-    it("adds all properties to the current runable's matchers", function() {
-      const currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it("adds all properties to the current runnable's matchers", function() {
+      const currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
 
       function toBeFoo() {}
       function toBeBar() {}
       function toBeBaz() {}
 
-      runableResources.addCustomAsyncMatchers({ toBeFoo });
-      expect(runableResources.customAsyncMatchers()).toEqual({ toBeFoo });
+      runnableResources.addCustomAsyncMatchers({ toBeFoo });
+      expect(runnableResources.customAsyncMatchers()).toEqual({ toBeFoo });
 
-      runableResources.addCustomAsyncMatchers({ toBeBar, toBeBaz });
-      expect(runableResources.customAsyncMatchers()).toEqual({
+      runnableResources.addCustomAsyncMatchers({ toBeBar, toBeBaz });
+      expect(runnableResources.customAsyncMatchers()).toEqual({
         toBeFoo,
         toBeBar,
         toBeBaz
@@ -94,75 +94,75 @@ describe('RunableResources', function() {
 
   describe('#defaultSpyStrategy', function() {
     it('returns undefined for a newly initialized resource', function() {
-      let currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+      let currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
 
-      expect(runableResources.defaultSpyStrategy()).toBeUndefined();
+      expect(runnableResources.defaultSpyStrategy()).toBeUndefined();
     });
 
     it('returns the value previously set by #setDefaultSpyStrategy', function() {
-      let currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+      let currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       const fn = () => {};
-      runableResources.setDefaultSpyStrategy(fn);
+      runnableResources.setDefaultSpyStrategy(fn);
 
-      expect(runableResources.defaultSpyStrategy()).toBe(fn);
+      expect(runnableResources.defaultSpyStrategy()).toBe(fn);
     });
 
-    it('is per-runable', function() {
-      let currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('is per-runnable', function() {
+      let currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
-      runableResources.setDefaultSpyStrategy(() => {});
-      currentRunableId = 2;
-      runableResources.initForRunable(2);
+      runnableResources.initForRunnable(1);
+      runnableResources.setDefaultSpyStrategy(() => {});
+      currentRunnableId = 2;
+      runnableResources.initForRunnable(2);
 
-      expect(runableResources.defaultSpyStrategy()).toBeUndefined();
+      expect(runnableResources.defaultSpyStrategy()).toBeUndefined();
     });
 
-    it('does not require a current runable', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('does not require a current runnable', function() {
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => null
+        getCurrentRunnableId: () => null
       });
-      expect(runableResources.defaultSpyStrategy()).toBeUndefined();
+      expect(runnableResources.defaultSpyStrategy()).toBeUndefined();
     });
 
-    it("inherits the parent runable's value", function() {
-      let currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it("inherits the parent runnable's value", function() {
+      let currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       const fn = () => {};
-      runableResources.setDefaultSpyStrategy(fn);
-      currentRunableId = 2;
-      runableResources.initForRunable(2, 1);
+      runnableResources.setDefaultSpyStrategy(fn);
+      currentRunnableId = 2;
+      runnableResources.initForRunnable(2, 1);
 
-      expect(runableResources.defaultSpyStrategy()).toBe(fn);
+      expect(runnableResources.defaultSpyStrategy()).toBe(fn);
     });
   });
 
   describe('#setDefaultSpyStrategy', function() {
-    it('throws a user-facing error when there is no current runable', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('throws a user-facing error when there is no current runnable', function() {
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => null
+        getCurrentRunnableId: () => null
       });
       expect(function() {
-        runableResources.setDefaultSpyStrategy();
+        runnableResources.setDefaultSpyStrategy();
       }).toThrowError(
         'Default spy strategy must be set in a before function or a spec'
       );
@@ -171,15 +171,15 @@ describe('RunableResources', function() {
 
   describe('#makePrettyPrinter', function() {
     it('returns a pretty printer configured with the current customObjectFormatters', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => 1
+        getCurrentRunnableId: () => 1
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       function cof() {}
-      runableResources.customObjectFormatters().push(cof);
+      runnableResources.customObjectFormatters().push(cof);
       spyOn(jasmineUnderTest, 'makePrettyPrinter').and.callThrough();
-      const pp = runableResources.makePrettyPrinter();
+      const pp = runnableResources.makePrettyPrinter();
 
       expect(jasmineUnderTest.makePrettyPrinter).toHaveBeenCalledOnceWith([
         cof
@@ -191,17 +191,17 @@ describe('RunableResources', function() {
   });
 
   describe('#makeMatchersUtil', function() {
-    describe('When there is a current runable', function() {
+    describe('When there is a current runnable', function() {
       it('returns a MatchersUtil configured with the current resources', function() {
-        const runableResources = new jasmineUnderTest.RunableResources({
+        const runnableResources = new jasmineUnderTest.RunnableResources({
           globalErrors: stubGlobalErrors(),
-          getCurrentRunableId: () => 1
+          getCurrentRunnableId: () => 1
         });
-        runableResources.initForRunable(1);
+        runnableResources.initForRunnable(1);
         function cof() {}
-        runableResources.customObjectFormatters().push(cof);
+        runnableResources.customObjectFormatters().push(cof);
         function ceq() {}
-        runableResources.customEqualityTesters().push(ceq);
+        runnableResources.customEqualityTesters().push(ceq);
         const expectedPP = {};
         const expectedMatchersUtil = {};
         spyOn(jasmineUnderTest, 'makePrettyPrinter').and.returnValue(
@@ -211,7 +211,7 @@ describe('RunableResources', function() {
           expectedMatchersUtil
         );
 
-        const matchersUtil = runableResources.makeMatchersUtil();
+        const matchersUtil = runnableResources.makeMatchersUtil();
 
         expect(matchersUtil).toBe(expectedMatchersUtil);
         expect(jasmineUnderTest.makePrettyPrinter).toHaveBeenCalledOnceWith([
@@ -229,18 +229,18 @@ describe('RunableResources', function() {
       });
     });
 
-    describe('When there is no current runable', function() {
+    describe('When there is no current runnable', function() {
       it('returns a MatchersUtil configured with defaults', function() {
-        const runableResources = new jasmineUnderTest.RunableResources({
+        const runnableResources = new jasmineUnderTest.RunnableResources({
           globalErrors: stubGlobalErrors(),
-          getCurrentRunableId: () => null
+          getCurrentRunnableId: () => null
         });
         const expectedMatchersUtil = {};
         spyOn(jasmineUnderTest, 'MatchersUtil').and.returnValue(
           expectedMatchersUtil
         );
 
-        const matchersUtil = runableResources.makeMatchersUtil();
+        const matchersUtil = runnableResources.makeMatchersUtil();
 
         expect(matchersUtil).toBe(expectedMatchersUtil);
         // We need === equality on the pp passed to MatchersUtil
@@ -256,19 +256,19 @@ describe('RunableResources', function() {
   });
 
   describe('.spyFactory', function() {
-    describe('When there is no current runable', function() {
+    describe('When there is no current runnable', function() {
       it('is configured with default strategies and matchersUtil', function() {
-        const runableResources = new jasmineUnderTest.RunableResources({
+        const runnableResources = new jasmineUnderTest.RunnableResources({
           globalErrors: stubGlobalErrors(),
-          getCurrentRunableId: () => null
+          getCurrentRunnableId: () => null
         });
         spyOn(jasmineUnderTest, 'Spy');
         const matchersUtil = {};
-        spyOn(runableResources, 'makeMatchersUtil').and.returnValue(
+        spyOn(runnableResources, 'makeMatchersUtil').and.returnValue(
           matchersUtil
         );
 
-        runableResources.spyFactory.createSpy('foo');
+        runnableResources.spyFactory.createSpy('foo');
 
         expect(jasmineUnderTest.Spy).toHaveBeenCalledWith(
           'foo',
@@ -281,24 +281,24 @@ describe('RunableResources', function() {
       });
     });
 
-    describe('When there is a current runable', function() {
-      it("is configured with the current runable's strategies and matchersUtil", function() {
-        const runableResources = new jasmineUnderTest.RunableResources({
+    describe('When there is a current runnable', function() {
+      it("is configured with the current runnable's strategies and matchersUtil", function() {
+        const runnableResources = new jasmineUnderTest.RunnableResources({
           globalErrors: stubGlobalErrors(),
-          getCurrentRunableId: () => 1
+          getCurrentRunnableId: () => 1
         });
-        runableResources.initForRunable(1);
+        runnableResources.initForRunnable(1);
         function customStrategy() {}
         function defaultStrategy() {}
-        runableResources.customSpyStrategies().foo = customStrategy;
-        runableResources.setDefaultSpyStrategy(defaultStrategy);
+        runnableResources.customSpyStrategies().foo = customStrategy;
+        runnableResources.setDefaultSpyStrategy(defaultStrategy);
         spyOn(jasmineUnderTest, 'Spy');
         const matchersUtil = {};
-        spyOn(runableResources, 'makeMatchersUtil').and.returnValue(
+        spyOn(runnableResources, 'makeMatchersUtil').and.returnValue(
           matchersUtil
         );
 
-        runableResources.spyFactory.createSpy('foo');
+        runnableResources.spyFactory.createSpy('foo');
 
         expect(jasmineUnderTest.Spy).toHaveBeenCalledWith(
           'foo',
@@ -324,56 +324,56 @@ describe('RunableResources', function() {
   });
 
   describe('.spyRegistry', function() {
-    it("writes to the current runable's spies", function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it("writes to the current runnable's spies", function() {
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => 1
+        getCurrentRunnableId: () => 1
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       function foo() {}
       const spyObj = { foo };
-      runableResources.spyRegistry.spyOn(spyObj, 'foo');
+      runnableResources.spyRegistry.spyOn(spyObj, 'foo');
 
-      expect(runableResources.spies()).toEqual([
+      expect(runnableResources.spies()).toEqual([
         jasmine.objectContaining({
           restoreObjectToOriginalState: jasmine.any(Function)
         })
       ]);
       expect(jasmineUnderTest.isSpy(spyObj.foo)).toBeTrue();
 
-      runableResources.spyRegistry.clearSpies();
+      runnableResources.spyRegistry.clearSpies();
       expect(spyObj.foo).toBe(foo);
     });
   });
 
-  describe('#clearForRunable', function() {
-    it('removes resources for the specified runable', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+  describe('#clearForRunnable', function() {
+    it('removes resources for the specified runnable', function() {
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => 1
+        getCurrentRunnableId: () => 1
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       expect(function() {
-        runableResources.spies();
+        runnableResources.spies();
       }).not.toThrow();
-      runableResources.clearForRunable(1);
+      runnableResources.clearForRunnable(1);
       expect(function() {
-        runableResources.spies();
+        runnableResources.spies();
       }).toThrowError('Spies must be created in a before function or a spec');
     });
 
     it('clears spies', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => 1
+        getCurrentRunnableId: () => 1
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       function foo() {}
       const spyObj = { foo };
-      runableResources.spyRegistry.spyOn(spyObj, 'foo');
+      runnableResources.spyRegistry.spyOn(spyObj, 'foo');
       expect(spyObj.foo).not.toBe(foo);
 
-      runableResources.clearForRunable(1);
+      runnableResources.clearForRunnable(1);
       expect(spyObj.foo).toBe(foo);
     });
 
@@ -381,169 +381,172 @@ describe('RunableResources', function() {
       const globalErrors = jasmine.createSpyObj('globalErrors', [
         'removeOverrideListener'
       ]);
-      const runableResources = new jasmineUnderTest.RunableResources({
-        getCurrentRunableId: () => 1,
+      const runnableResources = new jasmineUnderTest.RunnableResources({
+        getCurrentRunnableId: () => 1,
         globalErrors
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
 
-      runableResources.clearForRunable(1);
+      runnableResources.clearForRunnable(1);
       expect(globalErrors.removeOverrideListener).toHaveBeenCalled();
     });
 
-    it('does not remove resources for other runables', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('does not remove resources for other runnables', function() {
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => 1
+        getCurrentRunnableId: () => 1
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       function cof() {}
-      runableResources.customObjectFormatters().push(cof);
-      runableResources.clearForRunable(2);
-      expect(runableResources.customObjectFormatters()).toEqual([cof]);
+      runnableResources.customObjectFormatters().push(cof);
+      runnableResources.clearForRunnable(2);
+      expect(runnableResources.customObjectFormatters()).toEqual([cof]);
     });
   });
 
-  function behavesLikeAPerRunableMutableArray(
+  function behavesLikeAPerRunnableMutableArray(
     methodName,
     errorMsg,
     inherits = true
   ) {
     it('is initially empty', function() {
-      const currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+      const currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
 
-      expect(runableResources[methodName]()).toEqual([]);
+      expect(runnableResources[methodName]()).toEqual([]);
     });
 
     it('is mutable', function() {
-      const currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+      const currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       function newItem() {}
-      runableResources[methodName]().push(newItem);
-      expect(runableResources[methodName]()).toEqual([newItem]);
+      runnableResources[methodName]().push(newItem);
+      expect(runnableResources[methodName]()).toEqual([newItem]);
     });
 
-    it('is per-runable', function() {
-      let currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('is per-runnable', function() {
+      let currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
-      runableResources[methodName]().push(() => {});
-      runableResources.initForRunable(2);
-      currentRunableId = 2;
-      expect(runableResources[methodName]()).toEqual([]);
+      runnableResources.initForRunnable(1);
+      runnableResources[methodName]().push(() => {});
+      runnableResources.initForRunnable(2);
+      currentRunnableId = 2;
+      expect(runnableResources[methodName]()).toEqual([]);
     });
 
-    it('throws a user-facing error when there is no current runable', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('throws a user-facing error when there is no current runnable', function() {
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => null
+        getCurrentRunnableId: () => null
       });
       expect(function() {
-        runableResources[methodName]();
+        runnableResources[methodName]();
       }).toThrowError(errorMsg);
     });
 
     if (inherits) {
-      it('inherits from the parent runable', function() {
-        let currentRunableId = 1;
-        const runableResources = new jasmineUnderTest.RunableResources({
+      it('inherits from the parent runnable', function() {
+        let currentRunnableId = 1;
+        const runnableResources = new jasmineUnderTest.RunnableResources({
           globalErrors: stubGlobalErrors(),
-          getCurrentRunableId: () => currentRunableId
+          getCurrentRunnableId: () => currentRunnableId
         });
-        runableResources.initForRunable(1);
+        runnableResources.initForRunnable(1);
         function parentItem() {}
-        runableResources[methodName]().push(parentItem);
-        runableResources.initForRunable(2, 1);
-        currentRunableId = 2;
+        runnableResources[methodName]().push(parentItem);
+        runnableResources.initForRunnable(2, 1);
+        currentRunnableId = 2;
         function childItem() {}
-        runableResources[methodName]().push(childItem);
-        expect(runableResources[methodName]()).toEqual([parentItem, childItem]);
+        runnableResources[methodName]().push(childItem);
+        expect(runnableResources[methodName]()).toEqual([
+          parentItem,
+          childItem
+        ]);
 
-        currentRunableId = 1;
-        expect(runableResources[methodName]()).toEqual([parentItem]);
+        currentRunnableId = 1;
+        expect(runnableResources[methodName]()).toEqual([parentItem]);
       });
     }
   }
 
-  function behavesLikeAPerRunableMutableObject(methodName, errorMsg) {
+  function behavesLikeAPerRunnableMutableObject(methodName, errorMsg) {
     it('is initially empty', function() {
-      const currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+      const currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
 
-      expect(runableResources[methodName]()).toEqual({});
+      expect(runnableResources[methodName]()).toEqual({});
     });
 
     it('is mutable', function() {
-      const currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+      const currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       function newItem() {}
-      runableResources[methodName]().foo = newItem;
-      expect(runableResources[methodName]()).toEqual({ foo: newItem });
+      runnableResources[methodName]().foo = newItem;
+      expect(runnableResources[methodName]()).toEqual({ foo: newItem });
     });
 
-    it('is per-runable', function() {
-      let currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('is per-runnable', function() {
+      let currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
-      runableResources[methodName]().foo = function() {};
-      runableResources.initForRunable(2);
-      currentRunableId = 2;
-      expect(runableResources[methodName]()).toEqual({});
+      runnableResources.initForRunnable(1);
+      runnableResources[methodName]().foo = function() {};
+      runnableResources.initForRunnable(2);
+      currentRunnableId = 2;
+      expect(runnableResources[methodName]()).toEqual({});
     });
 
-    it('throws a user-facing error when there is no current runable', function() {
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('throws a user-facing error when there is no current runnable', function() {
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => null
+        getCurrentRunnableId: () => null
       });
       expect(function() {
-        runableResources[methodName]();
+        runnableResources[methodName]();
       }).toThrowError(errorMsg);
     });
 
-    it('inherits from the parent runable', function() {
-      let currentRunableId = 1;
-      const runableResources = new jasmineUnderTest.RunableResources({
+    it('inherits from the parent runnable', function() {
+      let currentRunnableId = 1;
+      const runnableResources = new jasmineUnderTest.RunnableResources({
         globalErrors: stubGlobalErrors(),
-        getCurrentRunableId: () => currentRunableId
+        getCurrentRunnableId: () => currentRunnableId
       });
-      runableResources.initForRunable(1);
+      runnableResources.initForRunnable(1);
       function parentItem() {}
-      runableResources[methodName]().parentName = parentItem;
-      runableResources.initForRunable(2, 1);
-      currentRunableId = 2;
+      runnableResources[methodName]().parentName = parentItem;
+      runnableResources.initForRunnable(2, 1);
+      currentRunnableId = 2;
       function childItem() {}
-      runableResources[methodName]().childName = childItem;
-      expect(runableResources[methodName]()).toEqual({
+      runnableResources[methodName]().childName = childItem;
+      expect(runnableResources[methodName]()).toEqual({
         parentName: parentItem,
         childName: childItem
       });
 
-      currentRunableId = 1;
-      expect(runableResources[methodName]()).toEqual({
+      currentRunnableId = 1;
+      expect(runnableResources[methodName]()).toEqual({
         parentName: parentItem
       });
     });

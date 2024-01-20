@@ -95,7 +95,7 @@ describe('Env', function() {
     });
   });
 
-  it('accepts its own current configureation', function() {
+  it('accepts its own current configuration', function() {
     env.configure(env.configuration());
   });
 
@@ -262,21 +262,21 @@ describe('Env', function() {
     });
   });
 
-  describe('#fdescribe', function() {
-    behavesLikeDescribe('fdescribe');
+  describe('#fDescribe', function() {
+    behavesLikeDescribe('fDescribe');
 
     it('throws an error in parallel mode', function() {
       env.setParallelLoadingState('specs');
       expect(function() {
-        env.fdescribe('a suite', function() {
+        env.fDescribe('a suite', function() {
           env.it('a spec');
         });
-      }).toThrowError("'fdescribe' is not available in parallel mode");
+      }).toThrowError("'fDescribe' is not available in parallel mode");
     });
   });
 
-  describe('xdescribe', function() {
-    behavesLikeDescribe('xdescribe');
+  describe('xDescribe', function() {
+    behavesLikeDescribe('xDescribe');
   });
 
   function behavesLikeIt(methodName) {

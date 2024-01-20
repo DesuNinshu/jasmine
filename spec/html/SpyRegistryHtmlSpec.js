@@ -3,7 +3,7 @@ describe('Spy Registry browser-specific behavior', function() {
     return jasmineUnderTest.Spy(name, originalFn);
   }
 
-  it('can spy on and unspy window.onerror', function() {
+  it('can spy on and un-spy window.onerror', function() {
     const spies = [],
       spyRegistry = new jasmineUnderTest.SpyRegistry({
         currentSpies: function() {

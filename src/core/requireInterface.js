@@ -28,16 +28,16 @@ getJasmineRequireObj().interface = function(jasmine, env) {
     /**
      * A temporarily disabled [`describe`]{@link describe}
      *
-     * Specs within an `xdescribe` will be marked pending and not executed
-     * @name xdescribe
+     * Specs within an `xDescribe` will be marked pending and not executed
+     * @name xDescribe
      * @since 1.3.0
      * @function
      * @global
      * @param {String} description Textual description of the group
      * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites and specs
      */
-    xdescribe: function(description, specDefinitions) {
-      return env.xdescribe(description, specDefinitions);
+    xDescribe: function(description, specDefinitions) {
+      return env.xDescribe(description, specDefinitions);
     },
 
     /**
@@ -45,15 +45,15 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      *
      * If suites or specs are focused, only those that are focused will be executed
      * @see fit
-     * @name fdescribe
+     * @name fDescribe
      * @since 2.1.0
      * @function
      * @global
      * @param {String} description Textual description of the group
      * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites and specs
      */
-    fdescribe: function(description, specDefinitions) {
-      return env.fdescribe(description, specDefinitions);
+    fDescribe: function(description, specDefinitions) {
+      return env.fDescribe(description, specDefinitions);
     },
 
     /**
@@ -441,7 +441,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
    * @function
    * @param {String} [baseName] - Base name for the spies in the object.
    * @param {String[]|Object} methodNames - Array of method names to create spies for, or Object whose keys will be method names and values the {@link Spy#and#returnValue|returnValue}.
-   * @param {String[]|Object} [propertyNames] - Array of property names to create spies for, or Object whose keys will be propertynames and values the {@link Spy#and#returnValue|returnValue}.
+   * @param {String[]|Object} [propertyNames] - Array of property names to create spies for, or Object whose keys will be property names and values the {@link Spy#and#returnValue|returnValue}.
    * @return {Object}
    */
   jasmine.createSpyObj = function(baseName, methodNames, propertyNames) {

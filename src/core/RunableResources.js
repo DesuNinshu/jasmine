@@ -1,13 +1,13 @@
-getJasmineRequireObj().RunableResources = function(j$) {
-  class RunableResources {
+getJasmineRequireObj().RunnableResources = function(j$) {
+  class RunnableResources {
     constructor(options) {
-      this.byRunableId_ = {};
-      this.getCurrentRunableId_ = options.getCurrentRunableId;
+      this.byRunnableId_ = {};
+      this.getCurrentRunnableId_ = options.getCurrentRunnableId;
       this.globalErrors_ = options.globalErrors;
 
       this.spyFactory = new j$.SpyFactory(
         () => {
-          if (this.getCurrentRunableId_()) {
+          if (this.getCurrentRunnableId_()) {
             return this.customSpyStrategies();
           } else {
             return {};
@@ -24,8 +24,8 @@ getJasmineRequireObj().RunableResources = function(j$) {
       });
     }
 
-    initForRunable(runableId, parentId) {
-      const newRes = (this.byRunableId_[runableId] = {
+    initForRunnable(runnableId, parentId) {
+      const newRes = (this.byRunnableId_[runnableId] = {
         customEqualityTesters: [],
         customMatchers: {},
         customAsyncMatchers: {},
@@ -35,7 +35,7 @@ getJasmineRequireObj().RunableResources = function(j$) {
         spies: []
       });
 
-      const parentRes = this.byRunableId_[parentId];
+      const parentRes = this.byRunnableId_[parentId];
 
       if (parentRes) {
         newRes.defaultSpyStrategy = parentRes.defaultSpyStrategy;
@@ -53,46 +53,47 @@ getJasmineRequireObj().RunableResources = function(j$) {
       }
     }
 
-    clearForRunable(runableId) {
+    clearForRunnable(runnableId) {
       this.globalErrors_.removeOverrideListener();
       this.spyRegistry.clearSpies();
-      delete this.byRunableId_[runableId];
+      delete this.byRunnableId_[runnableId];
     }
 
     spies() {
-      return this.forCurrentRunable_(
+      return this.forCurrentRunnable_(
         'Spies must be created in a before function or a spec'
       ).spies;
     }
 
     defaultSpyStrategy() {
-      if (!this.getCurrentRunableId_()) {
+      if (!this.getCurrentRunnableId_()) {
         return undefined;
       }
 
-      return this.byRunableId_[this.getCurrentRunableId_()].defaultSpyStrategy;
+      return this.byRunnableId_[this.getCurrentRunnableId_()]
+        .defaultSpyStrategy;
     }
 
     setDefaultSpyStrategy(fn) {
-      this.forCurrentRunable_(
+      this.forCurrentRunnable_(
         'Default spy strategy must be set in a before function or a spec'
       ).defaultSpyStrategy = fn;
     }
 
     customSpyStrategies() {
-      return this.forCurrentRunable_(
+      return this.forCurrentRunnable_(
         'Custom spy strategies must be added in a before function or a spec'
       ).customSpyStrategies;
     }
 
     customEqualityTesters() {
-      return this.forCurrentRunable_(
+      return this.forCurrentRunnable_(
         'Custom Equalities must be added in a before function or a spec'
       ).customEqualityTesters;
     }
 
     customMatchers() {
-      return this.forCurrentRunable_(
+      return this.forCurrentRunnable_(
         'Matchers must be added in a before function or a spec'
       ).customMatchers;
     }
@@ -106,7 +107,7 @@ getJasmineRequireObj().RunableResources = function(j$) {
     }
 
     customAsyncMatchers() {
-      return this.forCurrentRunable_(
+      return this.forCurrentRunnable_(
         'Async Matchers must be added in a before function or a spec'
       ).customAsyncMatchers;
     }
@@ -120,7 +121,7 @@ getJasmineRequireObj().RunableResources = function(j$) {
     }
 
     customObjectFormatters() {
-      return this.forCurrentRunable_(
+      return this.forCurrentRunnable_(
         'Custom object formatters must be added in a before function or a spec'
       ).customObjectFormatters;
     }
@@ -130,7 +131,7 @@ getJasmineRequireObj().RunableResources = function(j$) {
     }
 
     makeMatchersUtil() {
-      if (this.getCurrentRunableId_()) {
+      if (this.getCurrentRunnableId_()) {
         return new j$.MatchersUtil({
           customTesters: this.customEqualityTesters(),
           pp: this.makePrettyPrinter()
@@ -140,8 +141,8 @@ getJasmineRequireObj().RunableResources = function(j$) {
       }
     }
 
-    forCurrentRunable_(errorMsg) {
-      const resources = this.byRunableId_[this.getCurrentRunableId_()];
+    forCurrentRunnable_(errorMsg) {
+      const resources = this.byRunnableId_[this.getCurrentRunnableId_()];
 
       if (!resources && errorMsg) {
         throw new Error(errorMsg);
@@ -151,5 +152,5 @@ getJasmineRequireObj().RunableResources = function(j$) {
     }
   }
 
-  return RunableResources;
+  return RunnableResources;
 };

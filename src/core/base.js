@@ -10,7 +10,7 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   /**
    * Maximum number of array elements to display when pretty printing objects.
    * This will also limit the number of keys and values displayed for an object.
-   * Elements past this number will be ellipised.
+   * Elements past this number will be truncated.
    * @name jasmine.MAX_PRETTY_PRINT_ARRAY_LENGTH
    * @default 50
    * @since 2.7.0
@@ -18,7 +18,7 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   j$.MAX_PRETTY_PRINT_ARRAY_LENGTH = 50;
   /**
    * Maximum number of characters to display when pretty printing objects.
-   * Characters past this number will be ellipised.
+   * Characters past this number will be truncated.
    * @name jasmine.MAX_PRETTY_PRINT_CHARS
    * @default 100
    * @since 2.9.0
@@ -229,10 +229,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
    * @name jasmine.any
    * @since 1.3.0
    * @function
-   * @param {Constructor} clazz - The constructor to check against.
+   * @param {Constructor} someClass - The constructor to check against.
    */
-  j$.any = function(clazz) {
-    return new j$.Any(clazz);
+  j$.any = function(someClass) {
+    return new j$.Any(someClass);
   };
 
   /**
@@ -259,7 +259,7 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
 
   /**
    * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared is  `null`, `undefined`, `0`, `false` or anything falsey.
+   * that will succeed if the actual value being compared is  `null`, `undefined`, `0`, `false` or anything falsy.
    * @name jasmine.falsy
    * @since 3.1.0
    * @function

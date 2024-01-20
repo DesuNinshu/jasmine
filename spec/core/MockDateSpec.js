@@ -176,7 +176,7 @@ describe('FakeDate', function() {
     expect(otherDate.getTime()).toEqual(new Date(2013, 9, 23).getTime());
   });
 
-  it('allows creation of a Date with millis', function() {
+  it('allows creation of a Date with milliseconds', function() {
     const fakeGlobal = { Date: Date },
       mockDate = new jasmineUnderTest.MockDate(fakeGlobal),
       now = new Date(2014, 3, 15).getTime();

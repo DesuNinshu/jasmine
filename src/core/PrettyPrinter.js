@@ -279,7 +279,7 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
     }
 
     append(value) {
-      // This check protects us from the rare case where an object has overriden
+      // This check protects us from the rare case where an object has overridden
       // `toString()` with an invalid implementation (returning a non-string).
       if (typeof value !== 'string') {
         value = Object.prototype.toString.call(value);
@@ -310,12 +310,12 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
     }
   }
 
-  function truncate(s, maxlen) {
-    if (s.length <= maxlen) {
+  function truncate(s, maxLength) {
+    if (s.length <= maxLength) {
       return { value: s, truncated: false };
     }
 
-    s = s.substring(0, maxlen - 4) + ' ...';
+    s = s.substring(0, maxLength - 4) + ' ...';
     return { value: s, truncated: true };
   }
 

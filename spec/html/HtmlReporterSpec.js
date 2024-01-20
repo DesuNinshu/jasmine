@@ -679,7 +679,7 @@ describe('HtmlReporter', function() {
               message: 'Global After All Failure',
               globalErrorType: 'afterAll'
             },
-            { message: 'Your JS is borken', globalErrorType: 'load' }
+            { message: 'Your JS is broken', globalErrorType: 'load' }
           ]
         });
 
@@ -695,7 +695,7 @@ describe('HtmlReporter', function() {
           /AfterAll Global After All Failure/
         );
         expect(alertBars[2].innerHTML).toMatch(
-          /Error during loading: Your JS is borken/
+          /Error during loading: Your JS is broken/
         );
         expect(alertBars[2].innerHTML).not.toMatch(/line/);
       });
@@ -766,7 +766,7 @@ describe('HtmlReporter', function() {
         reporter.jasmineDone({
           failedExpectations: [
             {
-              message: 'Your JS is borken',
+              message: 'Your JS is broken',
               globalErrorType: 'load',
               filename: 'some/file.js',
               lineno: 42
@@ -780,7 +780,7 @@ describe('HtmlReporter', function() {
 
         expect(alertBars.length).toEqual(2);
         expect(alertBars[1].innerHTML).toMatch(
-          /Error during loading: Your JS is borken in some\/file.js line 42/
+          /Error during loading: Your JS is broken in some\/file.js line 42/
         );
       });
     });

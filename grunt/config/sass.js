@@ -7,7 +7,7 @@ module.exports = {
   },
   dist: {
     files: {
-      "lib/jasmine-core/jasmine.css": "src/html/jasmine.scss"
+      'lib/jasmine-core/jasmine.css': 'src/html/jasmine.scss'
     }
   }
 };

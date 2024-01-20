@@ -35,9 +35,9 @@ getJasmineRequireObj().Env = function(j$) {
       };
     })();
 
-    const runableResources = new j$.RunableResources({
-      getCurrentRunableId: function() {
-        const r = runner.currentRunable();
+    const runnableResources = new j$.RunnableResources({
+      getCurrentRunnableId: function() {
+        const r = runner.currentRunnable();
         return r ? r.id : null;
       },
       globalErrors
@@ -225,27 +225,27 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     this.setDefaultSpyStrategy = function(defaultStrategyFn) {
-      runableResources.setDefaultSpyStrategy(defaultStrategyFn);
+      runnableResources.setDefaultSpyStrategy(defaultStrategyFn);
     };
 
     this.addSpyStrategy = function(name, fn) {
-      runableResources.customSpyStrategies()[name] = fn;
+      runnableResources.customSpyStrategies()[name] = fn;
     };
 
     this.addCustomEqualityTester = function(tester) {
-      runableResources.customEqualityTesters().push(tester);
+      runnableResources.customEqualityTesters().push(tester);
     };
 
     this.addMatchers = function(matchersToAdd) {
-      runableResources.addCustomMatchers(matchersToAdd);
+      runnableResources.addCustomMatchers(matchersToAdd);
     };
 
     this.addAsyncMatchers = function(matchersToAdd) {
-      runableResources.addCustomAsyncMatchers(matchersToAdd);
+      runnableResources.addCustomAsyncMatchers(matchersToAdd);
     };
 
     this.addCustomObjectFormatter = function(formatter) {
-      runableResources.customObjectFormatters().push(formatter);
+      runnableResources.customObjectFormatters().push(formatter);
     };
 
     j$.Expectation.addCoreMatchers(j$.matchers);
@@ -253,8 +253,8 @@ getJasmineRequireObj().Env = function(j$) {
 
     const expectationFactory = function(actual, spec) {
       return j$.Expectation.factory({
-        matchersUtil: runableResources.makeMatchersUtil(),
-        customMatchers: runableResources.customMatchers(),
+        matchersUtil: runnableResources.makeMatchersUtil(),
+        customMatchers: runnableResources.customMatchers(),
         actual: actual,
         addExpectationResult: addExpectationResult
       });
@@ -291,8 +291,8 @@ getJasmineRequireObj().Env = function(j$) {
 
     const throwUnlessFactory = function(actual, spec) {
       return j$.Expectation.factory({
-        matchersUtil: runableResources.makeMatchersUtil(),
-        customMatchers: runableResources.customMatchers(),
+        matchersUtil: runnableResources.makeMatchersUtil(),
+        customMatchers: runnableResources.customMatchers(),
         actual: actual,
         addExpectationResult: handleThrowUnlessFailure
       });
@@ -300,8 +300,8 @@ getJasmineRequireObj().Env = function(j$) {
 
     const throwUnlessAsyncFactory = function(actual, spec) {
       return j$.Expectation.asyncFactory({
-        matchersUtil: runableResources.makeMatchersUtil(),
-        customAsyncMatchers: runableResources.customAsyncMatchers(),
+        matchersUtil: runnableResources.makeMatchersUtil(),
+        customAsyncMatchers: runnableResources.customAsyncMatchers(),
         actual: actual,
         addExpectationResult: handleThrowUnlessFailure
       });
@@ -324,7 +324,7 @@ getJasmineRequireObj().Env = function(j$) {
       routeLateFailure(result);
     }
 
-    function recordLateExpectation(runable, runableType, result) {
+    function recordLateExpectation(runnable, runnableType, result) {
       const delayedExpectationResult = {};
       Object.keys(result).forEach(function(k) {
         delayedExpectationResult[k] = result[k];
@@ -332,9 +332,9 @@ getJasmineRequireObj().Env = function(j$) {
       delayedExpectationResult.passed = false;
       delayedExpectationResult.globalErrorType = 'lateExpectation';
       delayedExpectationResult.message =
-        runableType +
+        runnableType +
         ' "' +
-        runable.getFullName() +
+        runnable.getFullName() +
         '" ran a "' +
         result.matcherName +
         '" expectation after it finished.\n';
@@ -355,7 +355,7 @@ getJasmineRequireObj().Env = function(j$) {
     function routeLateFailure(expectationResult) {
       // Report the result on the nearest ancestor suite that hasn't already
       // been reported done.
-      for (let r = runner.currentRunable(); r; r = r.parentSuite) {
+      for (let r = runner.currentRunnable(); r; r = r.parentSuite) {
         if (!r.reportedDone) {
           if (r === topSuite) {
             expectationResult.globalErrorType = 'lateError';
@@ -372,17 +372,17 @@ getJasmineRequireObj().Env = function(j$) {
       console.error(expectationResult);
     }
 
-    const asyncExpectationFactory = function(actual, spec, runableType) {
+    const asyncExpectationFactory = function(actual, spec, runnableType) {
       return j$.Expectation.asyncFactory({
-        matchersUtil: runableResources.makeMatchersUtil(),
-        customAsyncMatchers: runableResources.customAsyncMatchers(),
+        matchersUtil: runnableResources.makeMatchersUtil(),
+        customAsyncMatchers: runnableResources.customAsyncMatchers(),
         actual: actual,
         addExpectationResult: addExpectationResult
       });
 
       function addExpectationResult(passed, result) {
-        if (runner.currentRunable() !== spec) {
-          recordLateExpectation(spec, runableType, result);
+        if (runner.currentRunnable() !== spec) {
+          recordLateExpectation(spec, runnableType, result);
         }
         return spec.addExpectationResult(passed, result);
       }
@@ -411,8 +411,8 @@ getJasmineRequireObj().Env = function(j$) {
      * @param {Object} [options] Optional extra options, as described above
      */
     this.deprecated = function(deprecation, options) {
-      const runable = runner.currentRunable() || topSuite;
-      deprecator.addDeprecationWarning(runable, deprecation, options);
+      const runnable = runner.currentRunnable() || topSuite;
+      deprecator.addDeprecationWarning(runnable, deprecation, options);
     };
 
     function queueRunnerFactory(options) {
@@ -426,7 +426,7 @@ getJasmineRequireObj().Env = function(j$) {
       options.onException =
         options.onException ||
         function(e) {
-          (runner.currentRunable() || topSuite).handleException(e);
+          (runner.currentRunnable() || topSuite).handleException(e);
         };
 
       new j$.QueueRunner(options).execute();
@@ -474,8 +474,8 @@ getJasmineRequireObj().Env = function(j$) {
     runner = new j$.Runner({
       topSuite,
       totalSpecsDefined: () => suiteBuilder.totalSpecsDefined,
-      focusedRunables: () => suiteBuilder.focusedRunables,
-      runableResources,
+      focusedRunnables: () => suiteBuilder.focusedRunnables,
+      runnableResources,
       reporter,
       queueRunnerFactory,
       getConfig: () => config,
@@ -514,17 +514,17 @@ getJasmineRequireObj().Env = function(j$) {
      * @since 2.0.0
      * @function
      * @async
-     * @param {(string[])=} runablesToRun IDs of suites and/or specs to run
+     * @param {(string[])=} runnablesToRun IDs of suites and/or specs to run
      * @return {Promise<JasmineDoneInfo>}
      */
-    this.execute = async function(runablesToRun) {
+    this.execute = async function(runnablesToRun) {
       installGlobalErrors();
 
       if (parallelLoadingState) {
         validateConfigForParallel();
       }
 
-      const result = await runner.execute(runablesToRun);
+      const result = await runner.execute(runnablesToRun);
       this.cleanup_();
       return result;
     };
@@ -575,42 +575,42 @@ getJasmineRequireObj().Env = function(j$) {
      * Configures whether Jasmine should allow the same function to be spied on
      * more than once during the execution of a spec. By default, spying on
      * a function that is already a spy will cause an error.
-     * @name Env#allowRespy
+     * @name Env#allowReSpy
      * @function
      * @since 2.5.0
-     * @param {boolean} allow Whether to allow respying
+     * @param {boolean} allow Whether to allow re-spying
      */
-    this.allowRespy = function(allow) {
-      runableResources.spyRegistry.allowRespy(allow);
+    this.allowReSpy = function(allow) {
+      runnableResources.spyRegistry.allowReSpy(allow);
     };
 
     this.spyOn = function() {
-      return runableResources.spyRegistry.spyOn.apply(
-        runableResources.spyRegistry,
+      return runnableResources.spyRegistry.spyOn.apply(
+        runnableResources.spyRegistry,
         arguments
       );
     };
 
     this.spyOnProperty = function() {
-      return runableResources.spyRegistry.spyOnProperty.apply(
-        runableResources.spyRegistry,
+      return runnableResources.spyRegistry.spyOnProperty.apply(
+        runnableResources.spyRegistry,
         arguments
       );
     };
 
     this.spyOnAllFunctions = function() {
-      return runableResources.spyRegistry.spyOnAllFunctions.apply(
-        runableResources.spyRegistry,
+      return runnableResources.spyRegistry.spyOnAllFunctions.apply(
+        runnableResources.spyRegistry,
         arguments
       );
     };
 
     this.createSpy = function(name, originalFn) {
-      return runableResources.spyFactory.createSpy(name, originalFn);
+      return runnableResources.spyFactory.createSpy(name, originalFn);
     };
 
     this.createSpyObj = function(baseName, methodNames, propertyNames) {
-      return runableResources.spyFactory.createSpyObj(
+      return runnableResources.spyFactory.createSpyObj(
         baseName,
         methodNames,
         propertyNames
@@ -619,7 +619,7 @@ getJasmineRequireObj().Env = function(j$) {
 
     this.spyOnGlobalErrorsAsync = async function(fn) {
       const spy = this.createSpy('global error handler');
-      const associatedRunable = runner.currentRunable();
+      const associatedRunnable = runner.currentRunnable();
       let cleanedUp = false;
 
       globalErrors.setOverrideListener(spy, () => {
@@ -627,7 +627,7 @@ getJasmineRequireObj().Env = function(j$) {
           const message =
             'Global error spy was not uninstalled. (Did you ' +
             'forget to await the return value of spyOnGlobalErrorsAsync?)';
-          associatedRunable.addExpectationResult(false, {
+          associatedRunnable.addExpectationResult(false, {
             matcherName: '',
             passed: false,
             expected: '',
@@ -659,8 +659,8 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     function ensureIsNotNested(method) {
-      const runable = runner.currentRunable();
-      if (runable !== null && runable !== undefined) {
+      const runnable = runner.currentRunnable();
+      if (runnable !== null && runnable !== undefined) {
         throw new Error(
           "'" + method + "' should only be used in 'describe' function"
         );
@@ -706,23 +706,23 @@ getJasmineRequireObj().Env = function(j$) {
         .metadata;
     };
 
-    this.xdescribe = function(description, definitionFn) {
-      ensureIsNotNested('xdescribe');
+    this.xDescribe = function(description, definitionFn) {
+      ensureIsNotNested('xDescribe');
       const filename = callerCallerFilename();
-      return suiteBuilder.xdescribe(description, definitionFn, filename)
+      return suiteBuilder.xDescribe(description, definitionFn, filename)
         .metadata;
     };
 
-    this.fdescribe = function(description, definitionFn) {
-      ensureIsNotNested('fdescribe');
-      ensureNonParallel('fdescribe');
+    this.fDescribe = function(description, definitionFn) {
+      ensureIsNotNested('fDescribe');
+      ensureNonParallel('fDescribe');
       const filename = callerCallerFilename();
-      return suiteBuilder.fdescribe(description, definitionFn, filename)
+      return suiteBuilder.fDescribe(description, definitionFn, filename)
         .metadata;
     };
 
     function specResultCallback(spec, result, next) {
-      runableResources.clearForRunable(spec.id);
+      runnableResources.clearForRunnable(spec.id);
       runner.currentSpec = null;
 
       if (result.status === 'failed') {
@@ -734,7 +734,7 @@ getJasmineRequireObj().Env = function(j$) {
 
     function specStarted(spec, suite, next) {
       runner.currentSpec = spec;
-      runableResources.initForRunable(spec.id, suite.id);
+      runnableResources.initForRunnable(spec.id, suite.id);
       reporter.specStarted(spec.result).then(next);
     }
 
@@ -772,14 +772,14 @@ getJasmineRequireObj().Env = function(j$) {
      */
     this.setSpecProperty = function(key, value) {
       if (
-        !runner.currentRunable() ||
-        runner.currentRunable() == runner.currentSuite()
+        !runner.currentRunnable() ||
+        runner.currentRunnable() == runner.currentSuite()
       ) {
         throw new Error(
           "'setSpecProperty' was used when there was no current spec"
         );
       }
-      runner.currentRunable().setSpecProperty(key, value);
+      runner.currentRunnable().setSpecProperty(key, value);
     };
 
     /**
@@ -800,7 +800,7 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     this.debugLog = function(msg) {
-      const maybeSpec = runner.currentRunable();
+      const maybeSpec = runner.currentRunnable();
 
       if (!maybeSpec || !maybeSpec.debugLog) {
         throw new Error("'debugLog' was called when there was no current spec");
@@ -810,37 +810,37 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     this.expect = function(actual) {
-      const runable = runner.currentRunable();
+      const runnable = runner.currentRunnable();
 
-      if (!runable) {
+      if (!runnable) {
         throw new Error(
           "'expect' was used when there was no current spec, this could be because an asynchronous test timed out"
         );
       }
 
-      return runable.expectationFactory(actual, runable);
+      return runnable.expectationFactory(actual, runnable);
     };
 
     this.expectAsync = function(actual) {
-      const runable = runner.currentRunable();
+      const runnable = runner.currentRunnable();
 
-      if (!runable) {
+      if (!runnable) {
         throw new Error(
           "'expectAsync' was used when there was no current spec, this could be because an asynchronous test timed out"
         );
       }
 
-      return runable.asyncExpectationFactory(actual, runable);
+      return runnable.asyncExpectationFactory(actual, runnable);
     };
 
     this.throwUnless = function(actual) {
-      const runable = runner.currentRunable();
-      return throwUnlessFactory(actual, runable);
+      const runnable = runner.currentRunnable();
+      return throwUnlessFactory(actual, runnable);
     };
 
     this.throwUnlessAsync = function(actual) {
-      const runable = runner.currentRunable();
-      return throwUnlessAsyncFactory(actual, runable);
+      const runnable = runner.currentRunnable();
+      return throwUnlessAsyncFactory(actual, runnable);
     };
 
     this.beforeEach = function(beforeEachFunction, timeout) {
@@ -888,7 +888,7 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     this.fail = function(error) {
-      if (!runner.currentRunable()) {
+      if (!runner.currentRunnable()) {
         throw new Error(
           "'fail' was used when there was no current spec, this could be because an asynchronous test timed out"
         );
@@ -903,12 +903,12 @@ getJasmineRequireObj().Env = function(j$) {
           message += error;
         } else {
           // pretty print all kind of objects. This includes arrays.
-          const pp = runableResources.makePrettyPrinter();
+          const pp = runnableResources.makePrettyPrinter();
           message += pp(error);
         }
       }
 
-      runner.currentRunable().addExpectationResult(false, {
+      runner.currentRunnable().addExpectationResult(false, {
         matcherName: '',
         passed: false,
         expected: '',

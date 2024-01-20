@@ -9,20 +9,20 @@ getJasmineRequireObj().DelayedFunctionScheduler = function(j$) {
     this.delayedFnCount_ = 0;
     this.deletedKeys_ = [];
 
-    this.tick = function(millis, tickDate) {
-      millis = millis || 0;
-      const endTime = this.currentTime_ + millis;
+    this.tick = function(milliseconds, tickDate) {
+      milliseconds = milliseconds || 0;
+      const endTime = this.currentTime_ + milliseconds;
 
       this.runScheduledFunctions_(endTime, tickDate);
     };
 
     this.scheduleFunction = function(
       funcToCall,
-      millis,
+      milliseconds,
       params,
       recurring,
       timeoutKey,
-      runAtMillis
+      runAtMilliseconds
     ) {
       let f;
       if (typeof funcToCall === 'string') {
@@ -37,24 +37,24 @@ getJasmineRequireObj().DelayedFunctionScheduler = function(j$) {
         f = funcToCall;
       }
 
-      millis = millis || 0;
+      milliseconds = milliseconds || 0;
       timeoutKey = timeoutKey || ++this.delayedFnCount_;
-      runAtMillis = runAtMillis || this.currentTime_ + millis;
+      runAtMilliseconds = runAtMilliseconds || this.currentTime_ + milliseconds;
 
       const funcToSchedule = {
-        runAtMillis: runAtMillis,
+        runAtMilliseconds: runAtMilliseconds,
         funcToCall: f,
         recurring: recurring,
         params: params,
         timeoutKey: timeoutKey,
-        millis: millis
+        milliseconds: milliseconds
       };
 
-      if (runAtMillis in this.scheduledFunctions_) {
-        this.scheduledFunctions_[runAtMillis].push(funcToSchedule);
+      if (runAtMilliseconds in this.scheduledFunctions_) {
+        this.scheduledFunctions_[runAtMilliseconds].push(funcToSchedule);
       } else {
-        this.scheduledFunctions_[runAtMillis] = [funcToSchedule];
-        this.scheduledLookup_.push(runAtMillis);
+        this.scheduledFunctions_[runAtMilliseconds] = [funcToSchedule];
+        this.scheduledLookup_.push(runAtMilliseconds);
         this.scheduledLookup_.sort(function(a, b) {
           return a - b;
         });
@@ -66,16 +66,16 @@ getJasmineRequireObj().DelayedFunctionScheduler = function(j$) {
     this.removeFunctionWithId = function(timeoutKey) {
       this.deletedKeys_.push(timeoutKey);
 
-      for (const runAtMillis in this.scheduledFunctions_) {
-        const funcs = this.scheduledFunctions_[runAtMillis];
+      for (const runAtMilliseconds in this.scheduledFunctions_) {
+        const funcs = this.scheduledFunctions_[runAtMilliseconds];
         const i = indexOfFirstToPass(funcs, function(func) {
           return func.timeoutKey === timeoutKey;
         });
 
         if (i > -1) {
           if (funcs.length === 1) {
-            delete this.scheduledFunctions_[runAtMillis];
-            this.deleteFromLookup_(runAtMillis);
+            delete this.scheduledFunctions_[runAtMilliseconds];
+            this.deleteFromLookup_(runAtMilliseconds);
           } else {
             funcs.splice(i, 1);
           }
@@ -150,18 +150,18 @@ getJasmineRequireObj().DelayedFunctionScheduler = function(j$) {
   DelayedFunctionScheduler.prototype.reschedule_ = function(scheduledFn) {
     this.scheduleFunction(
       scheduledFn.funcToCall,
-      scheduledFn.millis,
+      scheduledFn.milliseconds,
       scheduledFn.params,
       true,
       scheduledFn.timeoutKey,
-      scheduledFn.runAtMillis + scheduledFn.millis
+      scheduledFn.runAtMilliseconds + scheduledFn.milliseconds
     );
   };
 
   DelayedFunctionScheduler.prototype.deleteFromLookup_ = function(key) {
     const value = Number(key);
-    const i = indexOfFirstToPass(this.scheduledLookup_, function(millis) {
-      return millis === value;
+    const i = indexOfFirstToPass(this.scheduledLookup_, function(milliseconds) {
+      return milliseconds === value;
     });
 
     if (i > -1) {

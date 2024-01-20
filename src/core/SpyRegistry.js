@@ -18,8 +18,8 @@ getJasmineRequireObj().SpyRegistry = function(j$) {
         return [];
       };
 
-    this.allowRespy = function(allow) {
-      this.respy = allow;
+    this.allowReSpy = function(allow) {
+      this.reSpy = allow;
     };
 
     this.spyOn = function(obj, methodName) {
@@ -42,7 +42,7 @@ getJasmineRequireObj().SpyRegistry = function(j$) {
       }
 
       if (obj[methodName] && j$.isSpy(obj[methodName])) {
-        if (this.respy) {
+        if (this.reSpy) {
           return obj[methodName];
         } else {
           throw new Error(
@@ -130,7 +130,7 @@ getJasmineRequireObj().SpyRegistry = function(j$) {
       }
 
       if (j$.isSpy(descriptor[accessType])) {
-        if (this.respy) {
+        if (this.reSpy) {
           return descriptor[accessType];
         } else {
           throw new Error(

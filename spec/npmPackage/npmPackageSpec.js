@@ -10,13 +10,13 @@ describe('npm package', function() {
     this.tarball = pack.stdout.split('\n')[0];
     this.tmpDir = temp.mkdirSync(); // automatically deleted on exit
 
-    const untar = shell.exec(
+    const unTar = shell.exec(
       'tar -xzf ' + this.tarball + ' -C ' + this.tmpDir,
       {
         silent: true
       }
     );
-    expect(untar.code).toBe(0);
+    expect(unTar.code).toBe(0);
 
     this.packagedCore = require(path.join(
       this.tmpDir,
@@ -132,16 +132,18 @@ describe('npm package', function() {
   it('only has JS and CSS files in the lib dir', function() {
     const files = [];
 
-    function getFiles(dir) {
-      const dirents = fs.readdirSync(dir, { withFileTypes: true });
+    function getFiles(directory) {
+      const directoryEntries = fs.readdirSync(directory, {
+        withFileTypes: true
+      });
 
-      for (let j = 0; j < dirents.length; j++) {
-        const dirent = dirents[j];
+      for (let j = 0; j < directoryEntries.length; j++) {
+        const entry = directoryEntries[j];
 
-        if (dirent.isDirectory()) {
-          getFiles(path.resolve(dir, dirent.name));
+        if (entry.isDirectory()) {
+          getFiles(path.resolve(entry.path, entry.name));
         } else {
-          files.push(path.resolve(dir, dirent.name));
+          files.push(path.resolve(entry.path, entry.name));
         }
       }
     }

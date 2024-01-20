@@ -1,0 +1,14 @@
+# Custom Dictionary Words
+arrayish
+cimg
+compat
+egal
+ENOCHEESE
+errexit
+jsbin
+loadtime
+pidfile
+posttest
+queueable
+Spyable
+stackblitz

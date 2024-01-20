@@ -4,7 +4,7 @@ getJasmineRequireObj().Expectation = function(j$) {
    * @namespace matchers
    */
   function Expectation(options) {
-    this.expector = new j$.Expector(options);
+    this.expecter = new j$.Expecter(options);
 
     const customMatchers = options.customMatchers || {};
     for (const matcherName in customMatchers) {
@@ -75,7 +75,7 @@ getJasmineRequireObj().Expectation = function(j$) {
    * @namespace async-matchers
    */
   function AsyncExpectation(options) {
-    this.expector = new j$.Expector(options);
+    this.expecter = new j$.Expecter(options);
 
     const customAsyncMatchers = options.customAsyncMatchers || {};
     for (const matcherName in customAsyncMatchers) {
@@ -134,8 +134,8 @@ getJasmineRequireObj().Expectation = function(j$) {
 
   function wrapSyncCompare(name, matcherFactory) {
     return function() {
-      const result = this.expector.compare(name, matcherFactory, arguments);
-      this.expector.processResult(result);
+      const result = this.expecter.compare(name, matcherFactory, arguments);
+      this.expecter.processResult(result);
     };
   }
 
@@ -145,10 +145,10 @@ getJasmineRequireObj().Expectation = function(j$) {
       // frames that are relevant to the user instead of just parts of Jasmine.
       const errorForStack = j$.util.errorWithStack();
 
-      return this.expector
+      return this.expecter
         .compare(name, matcherFactory, arguments)
         .then(result => {
-          this.expector.processResult(result, errorForStack);
+          this.expecter.processResult(result, errorForStack);
         });
     };
   }
@@ -162,7 +162,7 @@ getJasmineRequireObj().Expectation = function(j$) {
 
   function addFilter(source, filter) {
     const result = Object.create(source);
-    result.expector = source.expector.addFilter(filter);
+    result.expecter = source.expecter.addFilter(filter);
     return result;
   }
 

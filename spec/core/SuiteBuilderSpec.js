@@ -28,45 +28,45 @@ describe('SuiteBuilder', function() {
     definesSuites('describe');
   });
 
-  describe('#fdescribe', function() {
-    definesSuites('fdescribe');
+  describe('#fDescribe', function() {
+    definesSuites('fDescribe');
 
     it('focuses the suite', function() {
       const env = { configuration: () => ({}) };
       const suiteBuilder = new jasmineUnderTest.SuiteBuilder({ env });
 
-      const suite = suiteBuilder.fdescribe('a suite', function() {
+      const suite = suiteBuilder.fDescribe('a suite', function() {
         suiteBuilder.it('a spec');
       });
 
       expect(suite.isFocused).toBeTrue();
-      expect(suiteBuilder.focusedRunables).toEqual([suite.id]);
+      expect(suiteBuilder.focusedRunnables).toEqual([suite.id]);
     });
 
-    it('unfocuses any focused ancestor suite', function() {
+    it('removes focus for any focused ancestor suite', function() {
       const env = { configuration: () => ({}) };
       const suiteBuilder = new jasmineUnderTest.SuiteBuilder({ env });
 
-      const grandparent = suiteBuilder.fdescribe('a suite', function() {
+      const grandparent = suiteBuilder.fDescribe('a suite', function() {
         suiteBuilder.describe('another suite', function() {
-          suiteBuilder.fdescribe('the focused suite', function() {
+          suiteBuilder.fDescribe('the focused suite', function() {
             suiteBuilder.it('a spec');
           });
         });
       });
 
-      expect(suiteBuilder.focusedRunables).not.toContain(grandparent.id);
+      expect(suiteBuilder.focusedRunnables).not.toContain(grandparent.id);
     });
   });
 
-  describe('#xdescribe', function() {
-    definesSuites('xdescribe');
+  describe('#xDescribe', function() {
+    definesSuites('xDescribe');
 
     it('excludes the suite', function() {
       const env = { configuration: () => ({}) };
       const suiteBuilder = new jasmineUnderTest.SuiteBuilder({ env });
 
-      const suite = suiteBuilder.xdescribe('a suite', function() {
+      const suite = suiteBuilder.xDescribe('a suite', function() {
         suiteBuilder.it('a spec');
       });
 
@@ -78,7 +78,7 @@ describe('SuiteBuilder', function() {
       const suiteBuilder = new jasmineUnderTest.SuiteBuilder({ env });
 
       let suite;
-      suiteBuilder.xdescribe('a suite', function() {
+      suiteBuilder.xDescribe('a suite', function() {
         suite = suiteBuilder.describe('another suite', function() {
           suiteBuilder.it('a spec');
         });
@@ -212,7 +212,7 @@ describe('SuiteBuilder', function() {
       expect(suiteBuilder.topSuite.children).toEqual([]);
     });
 
-    it('preserves top suite befores and afters', function() {
+    it('preserves top suite before and afters', function() {
       const env = { configuration: () => ({}) };
       const suiteBuilder = new jasmineUnderTest.SuiteBuilder({ env });
 
@@ -252,14 +252,14 @@ describe('SuiteBuilder', function() {
       expect(suiteBuilder.totalSpecsDefined).toEqual(0);
     });
 
-    it('resets focusedRunables', function() {
+    it('resets focusedRunnables', function() {
       const env = { configuration: () => ({}) };
       const suiteBuilder = new jasmineUnderTest.SuiteBuilder({ env });
       suiteBuilder.fit('a spec', function() {});
 
       suiteBuilder.parallelReset();
 
-      expect(suiteBuilder.focusedRunables).toEqual([]);
+      expect(suiteBuilder.focusedRunnables).toEqual([]);
     });
   });
 });

@@ -34,6 +34,7 @@
     "package.json"
   ],
   "devDependencies": {
+    "@cspell/eslint-plugin": "^8.3.2",
     "eslint": "^8.36.0",
     "eslint-plugin-compat": "^4.0.0",
     "glob": "^10.2.3",
@@ -57,7 +58,11 @@
   },
   "eslintConfig": {
     "extends": [
-      "plugin:compat/recommended"
+      "plugin:compat/recommended",
+      "plugin:@cspell/recommended"
+    ],
+    "plugins": [
+      "@cspell"
     ],
     "env": {
       "browser": true,
@@ -68,6 +73,24 @@
       "ecmaVersion": 2018
     },
     "rules": {
+      "@cspell/spellchecker": [
+        "warn",
+        {
+          "debugMode": false,
+          "autoFix": true,
+          "cspell": {
+            "dictionaries": [
+              "custom-dictionary-workspace"
+            ],
+            "dictionaryDefinitions": [
+              {
+                "name": "custom-dictionary-workspace",
+                "path": "./.cspell/custom-dictionary-workspace.txt"
+              }
+            ]
+          }
+        }
+      ],
       "quotes": [
         "error",
         "single",
@@ -106,5 +129,14 @@
     "Firefox >= 102",
     "last 2 Chrome versions",
     "last 2 Edge versions"
-  ]
+  ],
+  "cspell": {
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [],
+    "ignoreWords": [],
+    "import": []
+  }
 }

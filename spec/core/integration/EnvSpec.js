@@ -186,7 +186,7 @@ describe('Env integration', function() {
     await env.execute();
   });
 
-  it("calls associated befores/specs/afters with the same 'this'", async function() {
+  it("calls associated before/specs/afters with the same 'this'", async function() {
     env.configure({ random: false });
     env.describe('tests', function() {
       let firstTimeThrough = true;
@@ -223,7 +223,7 @@ describe('Env integration', function() {
     await env.execute();
   });
 
-  it("calls associated befores/its/afters with the same 'this' for an async spec", async function() {
+  it("calls associated before/its/afters with the same 'this' for an async spec", async function() {
     env.describe('with an async spec', function() {
       let specContext;
 
@@ -558,7 +558,7 @@ describe('Env integration', function() {
 
       env.addReporter(reporter);
 
-      env.fdescribe('A suite', function() {
+      env.fDescribe('A suite', function() {
         env.it('fails', function(specDone) {
           setTimeout(function() {
             specDone();
@@ -1349,14 +1349,14 @@ describe('Env integration', function() {
     await env.execute();
   });
 
-  it('can be configured to allow respying on functions', async function() {
+  it('can be configured to allow re-spying on functions', async function() {
     const foo = {
       bar: function() {
         return 1;
       }
     };
 
-    env.allowRespy(true);
+    env.allowReSpy(true);
 
     env.describe('test suite', function() {
       env.it('spec 0', function() {
@@ -1850,7 +1850,7 @@ describe('Env integration', function() {
     it('should only run focused suites', async function() {
       const calls = [];
 
-      env.fdescribe('a focused suite', function() {
+      env.fDescribe('a focused suite', function() {
         env.it('is focused', function() {
           calls.push('focused');
         });
@@ -1867,7 +1867,7 @@ describe('Env integration', function() {
       expect(calls).toEqual(['focused']);
     });
 
-    it('should run focused tests inside an xdescribe', async function() {
+    it('should run focused tests inside an xDescribe', async function() {
       const reporter = jasmine.createSpyObj('fakeReporter', [
         'jasmineStarted',
         'suiteStarted',
@@ -1878,7 +1878,7 @@ describe('Env integration', function() {
 
       env.addReporter(reporter);
 
-      env.xdescribe('xd suite', function() {
+      env.xDescribe('xd suite', function() {
         env.fit('with a fit spec', function() {
           env.expect(true).toBe(false);
         });
@@ -1900,7 +1900,7 @@ describe('Env integration', function() {
       );
     });
 
-    it('should run focused suites inside an xdescribe', async function() {
+    it('should run focused suites inside an xDescribe', async function() {
       const reporter = jasmine.createSpyObj('fakeReporter', [
         'jasmineStarted',
         'suiteStarted',
@@ -1911,8 +1911,8 @@ describe('Env integration', function() {
 
       env.addReporter(reporter);
 
-      env.xdescribe('xd suite', function() {
-        env.fdescribe('fd suite', function() {
+      env.xDescribe('xd suite', function() {
+        env.fDescribe('fd suite', function() {
           env.it('with a spec', function() {
             env.expect(true).toBe(false);
           });
@@ -2106,7 +2106,7 @@ describe('Env integration', function() {
     env.fit('a focused top level spec', function() {});
 
     env.describe('a suite', function() {
-      env.fdescribe('a focused suite', function() {
+      env.fDescribe('a focused suite', function() {
         env.fit('a focused spec', function() {});
       });
     });
@@ -2289,7 +2289,7 @@ describe('Env integration', function() {
     env.execute();
   });
 
-  it('should report xdescribes as expected', async function() {
+  it('should report xDescribes as expected', async function() {
     const reporter = jasmine.createSpyObj('fakeReporter', [
       'jasmineStarted',
       'suiteStarted',
@@ -2302,7 +2302,7 @@ describe('Env integration', function() {
 
     env.describe('A Suite', function() {
       env.describe('nested', function() {
-        env.xdescribe('xd out', function() {
+        env.xDescribe('xd out', function() {
           env.describe('nested again', function() {
             env.it('with a spec', function() {
               env.expect(true).toBe(false);
@@ -2742,7 +2742,7 @@ describe('Env integration', function() {
     );
   });
 
-  it("should throw on suites/specs/befores/afters nested in methods other than 'describe'", async function() {
+  it("should throw on suites/specs/before/afters nested in methods other than 'describe'", async function() {
     const reporter = jasmine.createSpyObj('reporter', [
       'suiteDone',
       'specDone'
@@ -2754,11 +2754,11 @@ describe('Env integration', function() {
       env.it('describe', function() {
         env.describe('inner suite', function() {});
       });
-      env.it('xdescribe', function() {
-        env.xdescribe('inner suite', function() {});
+      env.it('xDescribe', function() {
+        env.xDescribe('inner suite', function() {});
       });
-      env.it('fdescribe', function() {
-        env.fdescribe('inner suite', function() {});
+      env.it('fDescribe', function() {
+        env.fDescribe('inner suite', function() {});
       });
     });
 
@@ -2811,11 +2811,11 @@ describe('Env integration', function() {
       [msg]
     );
     expect(reporter.specDone).toHaveFailedExpectationsForRunnable(
-      'suite xdescribe',
+      'suite xDescribe',
       [msg]
     );
     expect(reporter.specDone).toHaveFailedExpectationsForRunnable(
-      'suite fdescribe',
+      'suite fDescribe',
       [msg]
     );
 
@@ -2875,7 +2875,7 @@ describe('Env integration', function() {
     dispatchErrorEvent(global, {
       message: 'Uncaught SyntaxError: Unexpected end of input',
       error: undefined,
-      filename: 'borkenSpec.js',
+      filename: 'brokenSpec.js',
       lineno: 42
     });
     const error = new Error('ENOCHEESE');
@@ -2890,7 +2890,7 @@ describe('Env integration', function() {
         globalErrorType: 'load',
         message: 'Uncaught SyntaxError: Unexpected end of input',
         stack: undefined,
-        filename: 'borkenSpec.js',
+        filename: 'brokenSpec.js',
         lineno: 42
       },
       {
@@ -3168,7 +3168,7 @@ describe('Env integration', function() {
 
         const e = reporter.jasmineDone.calls.argsFor(0)[0];
         expect(e.overallStatus).toEqual('incomplete');
-        expect(e.incompleteReason).toEqual('fit() or fdescribe() was found');
+        expect(e.incompleteReason).toEqual('fit() or fDescribe() was found');
         expect(e.incompleteCode).toEqual('focused');
       });
     });
@@ -3182,14 +3182,14 @@ describe('Env integration', function() {
         ]);
 
         env.addReporter(reporter);
-        env.fdescribe('something focused', function() {
+        env.fDescribe('something focused', function() {
           env.it('does a thing', function() {});
         });
         await env.execute();
 
         const e = reporter.jasmineDone.calls.argsFor(0)[0];
         expect(e.overallStatus).toEqual('incomplete');
-        expect(e.incompleteReason).toEqual('fit() or fdescribe() was found');
+        expect(e.incompleteReason).toEqual('fit() or fDescribe() was found');
         expect(e.incompleteCode).toEqual('focused');
       });
     });
@@ -3867,13 +3867,13 @@ describe('Env integration', function() {
       'Global error spy was not uninstalled. ' +
       '(Did you forget to await the return value of spyOnGlobalErrorsAsync?)';
 
-    function resultForRunable(reporterSpy, fullName) {
+    function resultForRunnable(reporterSpy, fullName) {
       const match = reporterSpy.calls.all().find(function(call) {
         return call.args[0].fullName === fullName;
       });
 
       if (!match) {
-        throw new Error(`No result for runable "${fullName}"`);
+        throw new Error(`No result for runnable "${fullName}"`);
       }
 
       return match.args[0];
@@ -3913,14 +3913,14 @@ describe('Env integration', function() {
         }
       });
 
-      const passingResult = resultForRunable(
+      const passingResult = resultForRunnable(
         reporter.specDone,
         'a passing spec'
       );
       expect(passingResult.status).toEqual('passed');
       expect(passingResult.failedExpectations).toEqual([]);
 
-      const failingResult = resultForRunable(
+      const failingResult = resultForRunnable(
         reporter.specDone,
         'a failing spec'
       );
@@ -3970,14 +3970,14 @@ describe('Env integration', function() {
         }
       });
 
-      const suiteResult = resultForRunable(reporter.suiteDone, 'Suite 1');
+      const suiteResult = resultForRunnable(reporter.suiteDone, 'Suite 1');
       expect(suiteResult.status).toEqual('failed');
       expect(suiteResult.failedExpectations.length).toEqual(1);
       expect(suiteResult.failedExpectations[0].message).toEqual(
         leftInstalledMessage
       );
 
-      const specResult = resultForRunable(reporter.specDone, 'Suite 2 a spec');
+      const specResult = resultForRunnable(reporter.specDone, 'Suite 2 a spec');
       expect(specResult.status).toEqual('failed');
       expect(specResult.failedExpectations.length).toEqual(1);
       expect(specResult.failedExpectations[0].message).toMatch(
@@ -4030,14 +4030,14 @@ describe('Env integration', function() {
         [leftInstalledMessage]
       );
 
-      const suiteResult = resultForRunable(reporter.suiteDone, 'Suite 1');
+      const suiteResult = resultForRunnable(reporter.suiteDone, 'Suite 1');
       expect(suiteResult.status).toEqual('failed');
       expect(suiteResult.failedExpectations.length).toEqual(1);
       expect(suiteResult.failedExpectations[0].message).toEqual(
         leftInstalledMessage
       );
 
-      const specResult = resultForRunable(reporter.specDone, 'Suite 2 a spec');
+      const specResult = resultForRunnable(reporter.specDone, 'Suite 2 a spec');
       expect(specResult.status).toEqual('failed');
       expect(specResult.failedExpectations.length).toEqual(1);
       expect(specResult.failedExpectations[0].message).toMatch(
@@ -4086,14 +4086,20 @@ describe('Env integration', function() {
         }
       });
 
-      const spec1Result = resultForRunable(reporter.specDone, 'Suite 1 a spec');
+      const spec1Result = resultForRunnable(
+        reporter.specDone,
+        'Suite 1 a spec'
+      );
       expect(spec1Result.status).toEqual('failed');
       expect(spec1Result.failedExpectations.length).toEqual(1);
       expect(spec1Result.failedExpectations[0].message).toEqual(
         leftInstalledMessage
       );
 
-      const spec2Result = resultForRunable(reporter.specDone, 'Suite 2 a spec');
+      const spec2Result = resultForRunnable(
+        reporter.specDone,
+        'Suite 2 a spec'
+      );
       expect(spec2Result.status).toEqual('failed');
       expect(spec2Result.failedExpectations.length).toEqual(1);
       expect(spec2Result.failedExpectations[0].message).toMatch(
@@ -4132,14 +4138,14 @@ describe('Env integration', function() {
         }
       });
 
-      const spec1Result = resultForRunable(reporter.specDone, 'spec 1');
+      const spec1Result = resultForRunnable(reporter.specDone, 'spec 1');
       expect(spec1Result.status).toEqual('failed');
       expect(spec1Result.failedExpectations.length).toEqual(1);
       expect(spec1Result.failedExpectations[0].message).toEqual(
         leftInstalledMessage
       );
 
-      const spec2Result = resultForRunable(reporter.specDone, 'spec 2');
+      const spec2Result = resultForRunnable(reporter.specDone, 'spec 2');
       expect(spec2Result.status).toEqual('failed');
       expect(spec2Result.failedExpectations.length).toEqual(1);
       expect(spec2Result.failedExpectations[0].message).toMatch(
@@ -4187,14 +4193,20 @@ describe('Env integration', function() {
         }
       });
 
-      const spec1Result = resultForRunable(reporter.specDone, 'Suite 1 a spec');
+      const spec1Result = resultForRunnable(
+        reporter.specDone,
+        'Suite 1 a spec'
+      );
       expect(spec1Result.status).toEqual('failed');
       expect(spec1Result.failedExpectations.length).toEqual(1);
       expect(spec1Result.failedExpectations[0].message).toEqual(
         leftInstalledMessage
       );
 
-      const spec2Result = resultForRunable(reporter.specDone, 'Suite 2 a spec');
+      const spec2Result = resultForRunnable(
+        reporter.specDone,
+        'Suite 2 a spec'
+      );
       expect(spec2Result.status).toEqual('failed');
       expect(spec2Result.failedExpectations.length).toEqual(1);
       expect(spec2Result.failedExpectations[0].message).toMatch(
@@ -4279,14 +4291,14 @@ describe('Env integration', function() {
 
     // Simulate calling through global it and describe,
     // which add another stack frame vs calling env methods directly
-    function xdescribeShim(name, fn) {
-      env.xdescribe(name, fn);
+    function xDescribeShim(name, fn) {
+      env.xDescribe(name, fn);
     }
     function xitShim(name, fn) {
       env.xit(name, fn);
     }
 
-    xdescribeShim('a suite', function() {
+    xDescribeShim('a suite', function() {
       xitShim('a spec', function() {});
     });
 
@@ -4310,14 +4322,14 @@ describe('Env integration', function() {
 
     // Simulate calling through global it and describe,
     // which add another stack frame vs calling env methods directly
-    function fdescribeShim(name, fn) {
-      env.fdescribe(name, fn);
+    function fDescribeShim(name, fn) {
+      env.fDescribe(name, fn);
     }
     function fitShim(name, fn) {
       env.fit(name, fn);
     }
 
-    fdescribeShim('a suite', function() {
+    fDescribeShim('a suite', function() {
       fitShim('a spec', function() {});
     });
 

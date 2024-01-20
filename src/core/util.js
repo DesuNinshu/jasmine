@@ -25,7 +25,7 @@ getJasmineRequireObj().util = function(j$) {
       const str = Object.prototype.toString.apply(arg),
         primitives = /^\[object (Boolean|String|RegExp|Number)/;
 
-      // All falsey values are either primitives, `null`, or `undefined.
+      // All falsy values are either primitives, `null`, or `undefined.
       if (!arg || str.match(primitives)) {
         return arg;
       } else if (str === '[object Date]') {
@@ -79,7 +79,7 @@ getJasmineRequireObj().util = function(j$) {
   util.validateTimeout = function(timeout, msgPrefix) {
     // Timeouts are implemented with setTimeout, which only supports a limited
     // range of values. The limit is unspecified, as is the behavior when it's
-    // exceeded. But on all currently supported JS runtimes, setTimeout calls
+    // exceeded. But on all currently supported JS run-time libraries, setTimeout calls
     // the callback immediately when the timeout is greater than 2147483647
     // (the maximum value of a signed 32 bit integer).
     const max = 2147483647;

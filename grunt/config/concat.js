@@ -1,10 +1,10 @@
-var grunt = require('grunt');
+const grunt = require('grunt');
 
 function license() {
-  var currentYear = "" + new Date(Date.now()).getFullYear();
+  const currentYear = '' + new Date(Date.now()).getFullYear();
 
   return grunt.template.process(
-      grunt.file.read("grunt/templates/licenseBanner.js.jst"),
+      grunt.file.read('grunt/templates/licenseBanner.js.jst'),
       { data: { currentYear: currentYear}});
 }
 

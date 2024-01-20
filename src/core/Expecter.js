@@ -1,5 +1,5 @@
-getJasmineRequireObj().Expector = function(j$) {
-  function Expector(options) {
+getJasmineRequireObj().Expecter = function(j$) {
+  function Expecter(options) {
     this.matchersUtil = options.matchersUtil || {
       buildFailureMessage: function() {}
     };
@@ -8,7 +8,7 @@ getJasmineRequireObj().Expector = function(j$) {
     this.filters = new j$.ExpectationFilterChain();
   }
 
-  Expector.prototype.instantiateMatcher = function(
+  Expecter.prototype.instantiateMatcher = function(
     matcherName,
     matcherFactory,
     args
@@ -25,7 +25,7 @@ getJasmineRequireObj().Expector = function(j$) {
     return comparisonFunc || matcher.compare;
   };
 
-  Expector.prototype.buildMessage = function(result) {
+  Expecter.prototype.buildMessage = function(result) {
     if (result.pass) {
       return '';
     }
@@ -56,7 +56,7 @@ getJasmineRequireObj().Expector = function(j$) {
     return this.filters.modifyFailureMessage(msg || defaultMessage());
   };
 
-  Expector.prototype.compare = function(matcherName, matcherFactory, args) {
+  Expecter.prototype.compare = function(matcherName, matcherFactory, args) {
     const matcherCompare = this.instantiateMatcher(
       matcherName,
       matcherFactory,
@@ -65,13 +65,13 @@ getJasmineRequireObj().Expector = function(j$) {
     return matcherCompare.apply(null, this.args);
   };
 
-  Expector.prototype.addFilter = function(filter) {
+  Expecter.prototype.addFilter = function(filter) {
     const result = Object.create(this);
     result.filters = this.filters.addFilter(filter);
     return result;
   };
 
-  Expector.prototype.processResult = function(result, errorForStack) {
+  Expecter.prototype.processResult = function(result, errorForStack) {
     const message = this.buildMessage(result);
 
     if (this.expected.length === 1) {
@@ -85,9 +85,9 @@ getJasmineRequireObj().Expector = function(j$) {
       error: errorForStack ? undefined : result.error,
       errorForStack: errorForStack || undefined,
       actual: this.actual,
-      expected: this.expected // TODO: this may need to be arrayified/sliced
+      expected: this.expected // TODO: this may need to be arrayish/sliced
     });
   };
 
-  return Expector;
+  return Expecter;
 };

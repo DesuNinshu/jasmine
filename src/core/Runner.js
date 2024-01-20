@@ -4,8 +4,8 @@ getJasmineRequireObj().Runner = function(j$) {
       this.topSuite_ = options.topSuite;
       // TODO use names that read like getters
       this.totalSpecsDefined_ = options.totalSpecsDefined;
-      this.focusedRunables_ = options.focusedRunables;
-      this.runableResources_ = options.runableResources;
+      this.focusedRunnables_ = options.focusedRunnables;
+      this.runnableResources_ = options.runnableResources;
       this.queueRunnerFactory_ = options.queueRunnerFactory;
       this.reporter_ = options.reporter;
       this.getConfig_ = options.getConfig;
@@ -17,7 +17,7 @@ getJasmineRequireObj().Runner = function(j$) {
       this.currentSpec = null;
     }
 
-    currentRunable() {
+    currentRunnable() {
       return this.currentSpec || this.currentSuite();
     }
 
@@ -31,21 +31,21 @@ getJasmineRequireObj().Runner = function(j$) {
       this.executedBefore_ = false;
     }
 
-    async execute(runablesToRun) {
+    async execute(runnablesToRun) {
       if (this.executedBefore_) {
         this.topSuite_.reset();
       }
       this.executedBefore_ = true;
 
       this.hasFailures = false;
-      const focusedRunables = this.focusedRunables_();
+      const focusedRunnables = this.focusedRunnables_();
       const config = this.getConfig_();
 
-      if (!runablesToRun) {
-        if (focusedRunables.length) {
-          runablesToRun = focusedRunables;
+      if (!runnablesToRun) {
+        if (focusedRunnables.length) {
+          runnablesToRun = focusedRunnables;
         } else {
-          runablesToRun = [this.topSuite_.id];
+          runnablesToRun = [this.topSuite_.id];
         }
       }
 
@@ -56,7 +56,7 @@ getJasmineRequireObj().Runner = function(j$) {
 
       const processor = new j$.TreeProcessor({
         tree: this.topSuite_,
-        runnableIds: runablesToRun,
+        runnableIds: runnablesToRun,
         queueRunnerFactory: options => {
           if (options.isLeaf) {
             // A spec
@@ -75,7 +75,10 @@ getJasmineRequireObj().Runner = function(j$) {
         failSpecWithNoExpectations: config.failSpecWithNoExpectations,
         nodeStart: (suite, next) => {
           this.currentlyExecutingSuites_.push(suite);
-          this.runableResources_.initForRunable(suite.id, suite.parentSuite.id);
+          this.runnableResources_.initForRunnable(
+            suite.id,
+            suite.parentSuite.id
+          );
           this.reporter_.suiteStarted(suite.result).then(next);
           suite.startTimer();
         },
@@ -84,7 +87,7 @@ getJasmineRequireObj().Runner = function(j$) {
             throw new Error('Tried to complete the wrong suite');
           }
 
-          this.runableResources_.clearForRunable(suite.id);
+          this.runnableResources_.clearForRunnable(suite.id);
           this.currentlyExecutingSuites_.pop();
 
           if (result.status === 'failed') {
@@ -114,13 +117,13 @@ getJasmineRequireObj().Runner = function(j$) {
         );
       }
 
-      return this.execute2_(runablesToRun, order, processor);
+      return this.execute2_(runnablesToRun, order, processor);
     }
 
-    async execute2_(runablesToRun, order, processor) {
+    async execute2_(runnablesToRun, order, processor) {
       const totalSpecsDefined = this.totalSpecsDefined_();
 
-      this.runableResources_.initForRunable(this.topSuite_.id);
+      this.runnableResources_.initForRunnable(this.topSuite_.id);
       const jasmineTimer = new j$.Timer();
       jasmineTimer.start();
 
@@ -147,7 +150,7 @@ getJasmineRequireObj().Runner = function(j$) {
         await this.reportChildrenOfBeforeAllFailure_(this.topSuite_);
       }
 
-      this.runableResources_.clearForRunable(this.topSuite_.id);
+      this.runnableResources_.clearForRunnable(this.topSuite_.id);
       this.currentlyExecutingSuites_.pop();
       let overallStatus, incompleteReason, incompleteCode;
 
@@ -156,9 +159,9 @@ getJasmineRequireObj().Runner = function(j$) {
         this.topSuite_.result.failedExpectations.length > 0
       ) {
         overallStatus = 'failed';
-      } else if (this.focusedRunables_().length > 0) {
+      } else if (this.focusedRunnables_().length > 0) {
         overallStatus = 'incomplete';
-        incompleteReason = 'fit() or fdescribe() was found';
+        incompleteReason = 'fit() or fDescribe() was found';
         incompleteCode = 'focused';
       } else if (totalSpecsDefined === 0) {
         overallStatus = 'incomplete';

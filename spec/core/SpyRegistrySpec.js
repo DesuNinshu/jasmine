@@ -226,7 +226,7 @@ describe('SpyRegistry', function() {
     });
 
     describe('when the property is already spied upon', function() {
-      it('throws an error if respy is not allowed', function() {
+      it('throws an error if re-spy is not allowed', function() {
         const spyRegistry = new jasmineUnderTest.SpyRegistry({
             createSpy: createSpy
           }),
@@ -246,13 +246,13 @@ describe('SpyRegistry', function() {
         }).toThrowError(/spiedProp#get has already been spied upon/);
       });
 
-      it('returns the original spy if respy is allowed', function() {
+      it('returns the original spy if re-spy is allowed', function() {
         const spyRegistry = new jasmineUnderTest.SpyRegistry({
             createSpy: createSpy
           }),
           subject = {};
 
-        spyRegistry.allowRespy(true);
+        spyRegistry.allowReSpy(true);
 
         Object.defineProperty(subject, 'spiedProp', {
           get: function() {

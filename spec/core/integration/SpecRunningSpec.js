@@ -160,7 +160,7 @@ describe('spec running', function() {
     expect(actions).toEqual(expected);
   });
 
-  it('should run multiple befores and afters ordered so functions declared later are treated as more specific', async function() {
+  it('should run multiple before and afters ordered so functions declared later are treated as more specific', async function() {
     const actions = [];
 
     env.beforeAll(function() {
@@ -237,7 +237,7 @@ describe('spec running', function() {
     expect(actions).toEqual(expected);
   });
 
-  it('should run beforeAlls before beforeEachs and afterAlls after afterEachs', async function() {
+  it('should run beforeAlls before beforeEach and afterAlls after afterEach', async function() {
     const actions = [];
 
     env.beforeAll(function() {
@@ -366,7 +366,7 @@ describe('spec running', function() {
   it('only runs *Alls once in a focused suite', async function() {
     const actions = [];
 
-    env.fdescribe('Suite', function() {
+    env.fDescribe('Suite', function() {
       env.beforeAll(function() {
         actions.push('beforeAll');
       });
@@ -384,7 +384,7 @@ describe('spec running', function() {
   });
 
   describe('focused runnables', function() {
-    it('runs the relevant alls and eachs for each runnable', async function() {
+    it('runs all relevant all and each for each runnable', async function() {
       const actions = [];
       env.beforeAll(function() {
         actions.push('beforeAll');
@@ -399,9 +399,9 @@ describe('spec running', function() {
         actions.push('afterEach');
       });
 
-      env.fdescribe('a focused suite', function() {
+      env.fDescribe('a focused suite', function() {
         env.it('is run', function() {
-          actions.push('spec in fdescribe');
+          actions.push('spec in fDescribe');
         });
       });
 
@@ -416,7 +416,7 @@ describe('spec running', function() {
       const expected = [
         'beforeAll',
         'beforeEach',
-        'spec in fdescribe',
+        'spec in fDescribe',
         'afterEach',
 
         'beforeEach',
@@ -430,7 +430,7 @@ describe('spec running', function() {
     it('focused specs in focused suites cause non-focused siblings to not run', async function() {
       const actions = [];
 
-      env.fdescribe('focused suite', function() {
+      env.fDescribe('focused suite', function() {
         env.it('unfocused spec', function() {
           actions.push('unfocused spec');
         });
@@ -448,11 +448,11 @@ describe('spec running', function() {
     it('focused suites in focused suites cause non-focused siblings to not run', async function() {
       const actions = [];
 
-      env.fdescribe('focused suite', function() {
+      env.fDescribe('focused suite', function() {
         env.it('unfocused spec', function() {
           actions.push('unfocused spec');
         });
-        env.fdescribe('inner focused suite', function() {
+        env.fDescribe('inner focused suite', function() {
           env.it('inner spec', function() {
             actions.push('inner spec');
           });
@@ -468,7 +468,7 @@ describe('spec running', function() {
     it('focused runnables unfocus ancestor focused suites', async function() {
       const actions = [];
 
-      env.fdescribe('focused suite', function() {
+      env.fDescribe('focused suite', function() {
         env.it('unfocused spec', function() {
           actions.push('unfocused spec');
         });
@@ -489,7 +489,7 @@ describe('spec running', function() {
   it("shouldn't run disabled suites", async function() {
     const specInADisabledSuite = jasmine.createSpy('specInADisabledSuite');
     env.describe('A Suite', function() {
-      env.xdescribe('with a disabled suite', function() {
+      env.xDescribe('with a disabled suite', function() {
         env.it('spec inside a disabled suite', specInADisabledSuite);
       });
     });
@@ -501,7 +501,7 @@ describe('spec running', function() {
 
   it("shouldn't run before/after functions in disabled suites", async function() {
     const shouldNotRun = jasmine.createSpy('shouldNotRun');
-    env.xdescribe('A disabled Suite', function() {
+    env.xDescribe('A disabled Suite', function() {
       // None of the before/after functions should run.
       env.beforeAll(shouldNotRun);
       env.beforeEach(shouldNotRun);
@@ -520,7 +520,7 @@ describe('spec running', function() {
     const specInADisabledSuite = jasmine.createSpy('specInADisabledSuite'),
       otherSpec = jasmine.createSpy('otherSpec');
 
-    env.xdescribe('A disabled suite', function() {
+    env.xDescribe('A disabled suite', function() {
       env.it('spec inside a disabled suite', specInADisabledSuite);
     });
     env.describe('Another suite', function() {
@@ -1409,7 +1409,7 @@ describe('spec running', function() {
           });
           env.it('spec5', function() {});
         });
-        env.xdescribe('suite4', function() {
+        env.xDescribe('suite4', function() {
           // Always pending
           env.it('spec6', function() {});
         });

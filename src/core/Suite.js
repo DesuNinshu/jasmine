@@ -51,7 +51,7 @@ getJasmineRequireObj().Suite = function(j$) {
 
   /*
    * Like {@link Suite#pend}, but pending state will survive {@link Spec#reset}
-   * Useful for fdescribe, xdescribe, where pending state should remain.
+   * Useful for fDescribe, xDescribe, where pending state should remain.
    */
   Suite.prototype.exclude = function() {
     this.pend();
