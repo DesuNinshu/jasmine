@@ -260,7 +260,7 @@ describe('QueueRunner', function() {
       expect(onComplete).toHaveBeenCalled();
     });
 
-    it('does not call onMultipleDone if an asynchrnous function completes after timing out', function() {
+    it('does not call onMultipleDone if an asynchronous function completes after timing out', function() {
       const timeout = 3;
       let queueableFnDone;
       const queueableFn = {

@@ -106,14 +106,14 @@ describe('Support for parallel execution', function() {
     const reporter = jasmine.createSpyObj('reporter', ['suiteDone']);
     env.addReporter(reporter);
 
-    env.describe('borken', function() {
+    env.describe('broken', function() {
       throw new Error('nope');
     });
     await env.execute();
 
     expect(reporter.suiteDone).toHaveBeenCalledWith(
       jasmine.objectContaining({
-        description: 'borken',
+        description: 'broken',
         status: 'failed',
         failedExpectations: [
           jasmine.objectContaining({
@@ -126,6 +126,7 @@ describe('Support for parallel execution', function() {
     // Errors in subsequent suites should also be reported
     reporter.suiteDone.calls.reset();
     env.parallelReset();
+    // eslint-disable-next-line @cspell/spellchecker
     env.describe('zarro boogs', function() {
       throw new Error('nor that either');
     });
@@ -133,6 +134,7 @@ describe('Support for parallel execution', function() {
 
     expect(reporter.suiteDone).toHaveBeenCalledOnceWith(
       jasmine.objectContaining({
+        // eslint-disable-next-line @cspell/spellchecker
         description: 'zarro boogs',
         status: 'failed',
         failedExpectations: [

@@ -2,7 +2,9 @@ describe('StringContaining', function() {
   it('searches for a provided substring when the expected is a String', function() {
     const matcher = new jasmineUnderTest.StringContaining('foo');
 
+    // eslint-disable-next-line @cspell/spellchecker
     expect(matcher.asymmetricMatch('barfoobaz')).toBe(true);
+    // eslint-disable-next-line @cspell/spellchecker
     expect(matcher.asymmetricMatch('barbaz')).toBe(false);
   });
 

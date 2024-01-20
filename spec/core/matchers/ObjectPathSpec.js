@@ -25,7 +25,7 @@ describe('ObjectPath', function() {
     expect(new ObjectPath(['1hello']).toString()).toEqual("$['1hello']");
   });
 
-  it('renders symbols with squre bracket notation', function() {
+  it('renders symbols with square bracket notation', function() {
     expect(new ObjectPath([Symbol('a')]).toString()).toEqual('$[Symbol(a)]');
   });
 

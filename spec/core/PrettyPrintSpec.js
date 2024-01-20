@@ -261,7 +261,7 @@ describe('PrettyPrinter', function() {
     expect(pp({ constructor: 'foo' })).toContain('null({');
   });
 
-  it('should not include inherited properties when stringifying an object', function() {
+  it('should not include inherited properties when an object is stringified', function() {
     const pp = jasmineUnderTest.makePrettyPrinter();
     const SomeClass = function SomeClass() {};
     SomeClass.prototype.foo = 'inherited foo';

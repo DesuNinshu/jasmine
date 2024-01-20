@@ -155,11 +155,11 @@ describe('TreeProcessor', function() {
         markedPending: true,
         children: [childOfPending]
       }),
-      parentOfPendings = new Node({
+      parentOfPending = new Node({
         markedPending: false,
         children: [childless, pendingNode]
       }),
-      root = new Node({ children: [parent, parentOfPendings] }),
+      root = new Node({ children: [parent, parentOfPending] }),
       processor = new jasmineUnderTest.TreeProcessor({
         tree: root,
         runnableIds: [root.id]
@@ -174,7 +174,7 @@ describe('TreeProcessor', function() {
       segments: jasmine.any(Array)
     });
 
-    expect(result[parentOfPendings.id]).toEqual({
+    expect(result[parentOfPending.id]).toEqual({
       excluded: false,
       willExecute: false,
       segments: jasmine.any(Array)

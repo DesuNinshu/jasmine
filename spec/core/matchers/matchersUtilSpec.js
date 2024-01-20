@@ -1126,15 +1126,18 @@ describe('matchersUtil', function() {
           false,
           actual,
           'quux',
+          // eslint-disable-next-line @cspell/spellchecker
           'corge'
         );
 
+      // eslint-disable-next-line @cspell/spellchecker
       expect(message).toEqual("Expected 'foo' to bar 'quux', 'corge'.");
     });
 
-    it('uses the injected pretty-printer to format the expecteds and actual', function() {
+    it('uses the injected pretty-printer to format the expected and actual result', function() {
       const actual = 'foo',
         expected1 = 'qux',
+        // eslint-disable-next-line @cspell/spellchecker
         expected2 = 'grault',
         name = 'toBar',
         isNot = false,
@@ -1149,7 +1152,7 @@ describe('matchersUtil', function() {
           expected1,
           expected2
         );
-
+      // eslint-disable-next-line @cspell/spellchecker
       expect(message).toEqual('Expected <foo> to bar <qux>, <grault>.');
     });
   });

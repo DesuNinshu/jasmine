@@ -2,11 +2,17 @@
 arrayish
 cimg
 compat
+contenteditable
 egal
 ENOCHEESE
 errexit
+frobnicate
+frobnicates
 jsbin
+KHTML
+libwww
 loadtime
+nullary
 pidfile
 posttest
 queueable

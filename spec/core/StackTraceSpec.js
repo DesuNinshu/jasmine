@@ -152,7 +152,7 @@ describe('StackTrace', function() {
   it('does not mistake gibberish for Safari/Firefox/Phantom-OS X style traces', function() {
     const error = {
       message: 'nope',
-      stack: 'randomcharsnotincludingwhitespace'
+      stack: 'randomCharsNotIncludingWhitespace'
     };
     const result = new jasmineUnderTest.StackTrace(error);
     expect(result.style).toBeNull();
@@ -241,7 +241,7 @@ describe('StackTrace', function() {
     ]);
   });
 
-  it('consideres different types of errors', function() {
+  it('considers different types of errors', function() {
     const error = {
       message: 'nope',
       stack:

@@ -403,8 +403,11 @@ describe('toEqual', function() {
   });
 
   it('reports mismatches between objects with their own constructor property', function() {
+    // eslint-disable-next-line @cspell/spellchecker
     const actual = { x: { constructor: 'blerf' } },
+      // eslint-disable-next-line @cspell/spellchecker
       expected = { x: { constructor: 'ftarrh' } },
+      // eslint-disable-next-line @cspell/spellchecker
       message = "Expected $.x.constructor = 'blerf' to equal 'ftarrh'.";
 
     expect(compareEquals(actual, expected).message).toEqual(message);
@@ -412,12 +415,14 @@ describe('toEqual', function() {
 
   it('reports mismatches between an object with a real constructor and one with its own constructor property', function() {
     const actual = { x: {} },
+      // eslint-disable-next-line @cspell/spellchecker
       expected = { x: { constructor: 'ftarrh' } },
-      message =
+      message = // eslint-disable-next-line @cspell/spellchecker
         'Expected $.x to have properties\n' + "    constructor: 'ftarrh'";
 
     expect(compareEquals(actual, expected).message).toEqual(message);
     expect(compareEquals(expected, actual).message).toEqual(
+      // eslint-disable-next-line @cspell/spellchecker
       "Expected $.x not to have properties\n    constructor: 'ftarrh'"
     );
   });
@@ -845,7 +850,7 @@ describe('toEqual', function() {
     expect(compareEquals(actual, expected).pass).toBe(false);
   });
 
-  it('reports asymmetric mismatches when the asymmetric comparand is the actual value', function() {
+  it('reports asymmetric mismatches when the asymmetric operand is the actual value', function() {
     const actual = { a: jasmineUnderTest.any(String) },
       expected = { a: 1 },
       message = 'Expected $.a = <jasmine.any(String)> to equal 1.';

@@ -53,6 +53,7 @@ describe('QueryString', function() {
   describe('#getParam', function() {
     it('returns the value of the requested key', function() {
       const windowLocation = {
+          // eslint-disable-next-line @cspell/spellchecker
           search: '?baz=quux%20corge'
         },
         queryString = new jasmineUnderTest.QueryString({
@@ -60,7 +61,7 @@ describe('QueryString', function() {
             return windowLocation;
           }
         });
-
+      // eslint-disable-next-line @cspell/spellchecker
       expect(queryString.getParam('baz')).toEqual('quux corge');
     });
 

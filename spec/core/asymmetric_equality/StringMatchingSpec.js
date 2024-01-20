@@ -2,14 +2,18 @@ describe('StringMatching', function() {
   it('matches a string against a provided regexp', function() {
     const matcher = new jasmineUnderTest.StringMatching(/foo/);
 
+    // eslint-disable-next-line @cspell/spellchecker
     expect(matcher.asymmetricMatch('barfoobaz')).toBe(true);
+    // eslint-disable-next-line @cspell/spellchecker
     expect(matcher.asymmetricMatch('barbaz')).toBe(false);
   });
 
   it('matches a string against provided string', function() {
     const matcher = new jasmineUnderTest.StringMatching('foo');
 
+    // eslint-disable-next-line @cspell/spellchecker
     expect(matcher.asymmetricMatch('barfoobaz')).toBe(true);
+    // eslint-disable-next-line @cspell/spellchecker
     expect(matcher.asymmetricMatch('barbaz')).toBe(false);
   });
 

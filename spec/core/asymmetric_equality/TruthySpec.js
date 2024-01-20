@@ -52,7 +52,7 @@ describe('Truthy', function() {
     expect(truthy.asymmetricMatch(new Date())).toBe(true);
   });
 
-  it('is true for a infiniti', function() {
+  it('is true for a infinity', function() {
     const truthy = new jasmineUnderTest.Truthy();
 
     expect(truthy.asymmetricMatch(Infinity)).toBe(true);

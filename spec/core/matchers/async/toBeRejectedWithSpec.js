@@ -2,8 +2,10 @@ describe('#toBeRejectedWith', function() {
   it('should return true if the promise is rejected with the expected value', function() {
     const matchersUtil = new jasmineUnderTest.MatchersUtil(),
       matcher = jasmineUnderTest.asyncMatchers.toBeRejectedWith(matchersUtil),
+      // eslint-disable-next-line @cspell/spellchecker
       actual = Promise.reject({ error: 'PEBCAK' });
 
+    // eslint-disable-next-line @cspell/spellchecker
     return matcher.compare(actual, { error: 'PEBCAK' }).then(function(result) {
       expect(result).toEqual(jasmine.objectContaining({ pass: true }));
     });

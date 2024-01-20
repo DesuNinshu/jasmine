@@ -1,5 +1,5 @@
 describe('ClearStack', function() {
-  it('works in an integrationy way', function(done) {
+  it('works in an integration-like way', function(done) {
     const clearStack = jasmineUnderTest.getClearStack(
       jasmineUnderTest.getGlobal()
     );

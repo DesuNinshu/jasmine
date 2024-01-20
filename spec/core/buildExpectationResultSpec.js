@@ -26,10 +26,10 @@ describe('buildExpectationResult', function() {
     it('sets the message to the formatted error', function() {
       const result = jasmineUnderTest.buildExpectationResult({
         passed: false,
-        error: { message: 'foo', fileName: 'somefile.js' }
+        error: { message: 'foo', fileName: 'someFile.js' }
       });
 
-      expect(result.message).toEqual('foo in somefile.js');
+      expect(result.message).toEqual('foo in someFile.js');
     });
 
     it('delegates stack formatting to the provided formatter', function() {

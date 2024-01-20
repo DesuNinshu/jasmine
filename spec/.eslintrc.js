@@ -1,3 +1,4 @@
+/** @type {import("eslint").ESLint.Options} */
 module.exports = {
   ignorePatterns: ['support/ci.js', 'support/jasmine-browser.js'],
   rules: {

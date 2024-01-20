@@ -14,9 +14,9 @@ describe('DelayedFunctionScheduler', function() {
 
   it('schedules a string for later execution', function() {
     const scheduler = new jasmineUnderTest.DelayedFunctionScheduler(),
-      strfn = 'horrible = true;';
+      stringFunction = 'horrible = true;';
 
-    scheduler.scheduleFunction(strfn, 0);
+    scheduler.scheduleFunction(stringFunction, 0);
 
     scheduler.tick(0);
 

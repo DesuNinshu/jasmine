@@ -4,6 +4,7 @@ describe('Falsy', function() {
 
     expect(falsy.asymmetricMatch('')).toBe(true);
     expect(falsy.asymmetricMatch('')).toBe(true);
+    // eslint-disable-next-line @cspell/spellchecker
     expect(falsy.asymmetricMatch('asdasdad')).toBe(false);
   });
 

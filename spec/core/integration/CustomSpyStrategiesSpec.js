@@ -83,9 +83,9 @@ describe('Custom Spy Strategies (Integration)', function() {
 
   it('allows multiple custom strategies to be used', async function() {
     const plan1 = jasmine.createSpy('plan 1').and.returnValue(42),
-      strategy1 = jasmine.createSpy('strat 1').and.returnValue(plan1),
+      strategy1 = jasmine.createSpy('strategy 1').and.returnValue(plan1),
       plan2 = jasmine.createSpy('plan 2').and.returnValue(24),
-      strategy2 = jasmine.createSpy('strat 2').and.returnValue(plan2),
+      strategy2 = jasmine.createSpy('strategy 2').and.returnValue(plan2),
       specDone = jasmine.createSpy('specDone');
 
     env.beforeEach(function() {

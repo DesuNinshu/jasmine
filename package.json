@@ -129,14 +129,5 @@
     "Firefox >= 102",
     "last 2 Chrome versions",
     "last 2 Edge versions"
-  ],
-  "cspell": {
-    "version": "0.2",
-    "ignorePaths": [],
-    "dictionaryDefinitions": [],
-    "dictionaries": [],
-    "words": [],
-    "ignoreWords": [],
-    "import": []
-  }
+  ]
 }

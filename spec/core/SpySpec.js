@@ -228,12 +228,15 @@ describe('Spies', function() {
   it('can use different strategies for different arguments', function() {
     const spy = env.createSpy('foo');
     spy.and.returnValue(42);
+    // eslint-disable-next-line @cspell/spellchecker
     spy.withArgs('baz', 'grault').and.returnValue(-1);
     spy.withArgs('thud').and.returnValue('bob');
 
     expect(spy('foo')).toEqual(42);
+    // eslint-disable-next-line @cspell/spellchecker
     expect(spy('baz', 'grault')).toEqual(-1);
     expect(spy('thud')).toEqual('bob');
+    // eslint-disable-next-line @cspell/spellchecker
     expect(spy('baz', 'grault', 'waldo')).toEqual(42);
   });
 
